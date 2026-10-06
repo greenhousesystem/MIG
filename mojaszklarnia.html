@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moja szklarnia</title>
+<link  rel="stylesheet" href="css.css">
+<style>
+
+</style>
+</head>
+
+<body>
+
+<div class="nagluwek">
+    <div class="title">
+        <a href="onas.html">
+            <img src="logo.png" alt="Logo" style="height: 60px;">
+        </a>
+    </div>
+    <div class="menu">
+        <svg
+        xmlns="http://www.w3.org/2000/svg" class="sandwich" viewBox="0 0 40 40"  fill="none" aria-label="Menu">
+        <line x1="8" y1="12" x2="32" y2="12"
+              stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+        <line x1="8" y1="20" x2="32" y2="20"
+              stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+        <line x1="8" y1="28" x2="32" y2="28"
+              stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+      </svg>
+
+    </div>
+    <div class="menuwrapper">
+        <a href="onas.html">
+        <div class="menuoption" style="--in-delay: 0s; --out-delay: 0.28s; top: 84px; border-top-left-radius: 6px;"> O NAS</div>
+        </a>
+        <a href="onas.html">
+        <div class="menuoption" style="--in-delay: 0.14s; --out-delay: 0.14s; top: 184px;">GALERIA</div>
+        </a>
+        <a href="mojaszklarnia.html">
+              <div class="menuoption" style="--in-delay: 0.28s; --out-delay: 0s; top: 284px; border-bottom: 5px solid rgb(45, 184, 45);  border-bottom-left-radius: 6px;"> PANEL SZKLARNI</div>
+        </a>
+         </div>
+</div>
+
+
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////-->
+<div style="width: 100%; height: 500px; background-color: rgb(72, 161, 106);">
+    <canvas
+      id="bg"
+      style="
+        position: relative;
+        width: 100%;
+        height: 100%;
+        -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 60px), transparent 100%);
+        mask-image: linear-gradient(to bottom, #000 calc(100% - 60px), transparent 100%);
+      "
+    ></canvas>
+  
+    <script type="module">
+      import { createShader } from 'https://esm.sh/shaders/js';
+  
+      await createShader(document.getElementById('bg'), {
+        components: [
+          {
+            type: 'SolidColor',
+            props: {
+              color: '#149941'
+            }
+          },
+  
+          {
+            type: 'TimeTrail',
+            props: {
+              trailSource: 'motion',
+              trailLength: 0,
+              diffusion: 0.1,
+              trailOpacity: 0.4,
+              trailBlend: 'normal',
+              speed: 4
+            },
+  
+            children: [
+              {
+                type: 'ContourLines',
+                props: {
+                  levels: 0.9,
+                  gamma: 1,
+                  lineWidth: 1.75,
+                  softness: 0.4,
+                  colorMode: 'custom',
+                  lineColor: '#5cdb79',
+                  backgroundColor: 'transparent'
+                },
+  
+                children: [
+                  {
+                    type: 'PerlinNoise',
+                    props: {
+                      scale: 2.3,
+                      seed: 0,
+                      speed: 0.15
+                    }
+                  },
+  
+                  {
+                    type: 'Blob',
+                    props: {
+                      colorA: '#666666',
+                      colorB: '#666666',
+                      size: 0.1,
+                      deformation: 0.75,
+                      softness: 0.4,
+                      highlightIntensity: 0,
+                      speed: 1,
+                      seed: 4,
+  
+                      center: {
+                        type: 'mouse-position',
+                        smoothing: 0.3,
+                        momentum: 0.25
+                      },
+  
+                      blendMode: 'normal'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      });
+    </script>
+  </div>
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////-->
+<div class="pasek">
+    <div style="margin-top: 80px;">
+        <h1>Moja szklarnia</h1>
+        <p class="opis">Ustaw warunki, w jakich maja rosnac twoje rosliny. Sterownik
+           sam wlaczy pompke i wiatrak, zeby utrzymac zadany zakres.</p>
+    </div>
+
+    <div class="polaczenie ramka" id="polaczenie" role="status" aria-live="polite">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path class="luk" d="M12 20.5a1.6 1.6 0 1 0 0-3.2 1.6 1.6 0 0 0 0 3.2z"/>
+            <path class="luk" d="M12 12.6c1.7 0 3.3.7 4.5 1.8l1.6-1.7A9 9 0 0 0 12 10.3a9 9 0 0 0-6.1 2.4l1.6 1.7a6.6 6.6 0 0 1 4.5-1.8z"/>
+            <path class="luk" d="M12 6.4c3 0 5.7 1.1 7.8 3l1.6-1.7A13 13 0 0 0 12 4 13 13 0 0 0 2.6 7.7l1.6 1.7A11 11 0 0 1 12 6.4z"/>
+            <path class="krzyzyk" d="M3 3l18 18" stroke="rgb(192,57,43)" stroke-width="2" fill="none"/>
+        </svg>
+        <span class="etykieta" id="etykietaPolaczenia">Laczenie</span>
+    </div>
+</div>
+
+<div class="kafelki">
+    <div class="kafelek ramka" id="kafelekTemp">
+        <p class="nazwa">Temperatura</p>
+        <p class="wartosc"><span id="wartoscTemp">--</span><span class="jednostka">&deg;C</span></p>
+        <p class="zrodlo">odczyt na zywo</p>
+    </div>
+
+    <div class="kafelek ramka" id="kafelekWilg">
+        <p class="nazwa">Wilgotnosc powietrza</p>
+        <p class="wartosc"><span id="wartoscWilg">--</span><span class="jednostka">%</span></p>
+        <p class="zrodlo">odczyt na zywo</p>
+    </div>
+
+    <div class="kafelek ramka" id="kafelekGleba">
+        <p class="nazwa">Wilgotnosc gleby</p>
+        <p class="wartosc"><span id="wartoscGleba">--</span><span class="jednostka">%</span></p>
+        <p class="zrodlo">odczyt na zywo</p>
+    </div>
+</div>
+
+<!-- ================= WARUNKI DLA ROSLIN ================= -->
+<div class="sekcja">
+    <h2>Warunki dla roslin</h2>
+    <p class="podpis">Podaj zakres, w ktorym roslinom jest dobrze. Zielony pasek to
+       zakres docelowy, pionowa kreska to biezacy odczyt. Po zapisaniu sterownik
+       pamieta warunki nawet po odlaczeniu zasilania.</p>
+
+    <div class="karty-warunkow">
+        <div class="karta-warunku ramka" data-zakres="temp">
+            <div class="glowka-warunku">
+                <p class="nazwa">Temperatura</p>
+                <span class="teraz" id="terazTemp">brak odczytu</span>
+            </div>
+
+            <div class="skala">
+                <div class="strefa" id="strefaTemp"></div>
+                <div class="znacznik" id="znacznikTemp"></div>
+            </div>
+            <div class="opis-skali"><span>0 &deg;C</span><span>50 &deg;C</span></div>
+
+            <div class="pola-warunku">
+                <label class="pole"><span>Minimum</span>
+                    <input type="number" id="temp_min" step="0.5" min="0" max="50" disabled></label>
+                <label class="pole"><span>Maksimum</span>
+                    <input type="number" id="temp_max" step="0.5" min="0" max="50" disabled></label>
+            </div>
+
+            <p class="uwaga-warunku">Po przekroczeniu maksimum rusza wiatrak.
+               Szklarnia nie ma grzalki, wiec spadek ponizej minimum jest tylko
+               sygnalizowany kolorem diod.</p>
+        </div>
+
+        <div class="karta-warunku ramka" data-zakres="hum">
+            <div class="glowka-warunku">
+                <p class="nazwa">Wilgotnosc powietrza</p>
+                <span class="teraz" id="terazHum">brak odczytu</span>
+            </div>
+
+            <div class="skala">
+                <div class="strefa" id="strefaHum"></div>
+                <div class="znacznik" id="znacznikHum"></div>
+            </div>
+            <div class="opis-skali"><span>0 %</span><span>100 %</span></div>
+
+            <div class="pola-warunku">
+                <label class="pole"><span>Minimum</span>
+                    <input type="number" id="hum_min" step="1" min="0" max="100" disabled></label>
+                <label class="pole"><span>Maksimum</span>
+                    <input type="number" id="hum_max" step="1" min="0" max="100" disabled></label>
+            </div>
+
+            <p class="uwaga-warunku">Zbyt wilgotne powietrze sprzyja plesni, dlatego
+               powyzej maksimum wiatrak przewietrza szklarnie.</p>
+        </div>
+
+        <div class="karta-warunku ramka" data-zakres="soil">
+            <div class="glowka-warunku">
+                <p class="nazwa">Wilgotnosc gleby</p>
+                <span class="teraz" id="terazSoil">brak odczytu</span>
+            </div>
+
+            <div class="skala">
+                <div class="strefa" id="strefaSoil"></div>
+                <div class="znacznik" id="znacznikSoil"></div>
+            </div>
+            <div class="opis-skali"><span>sucho 0 %</span><span>mokro 100 %</span></div>
+
+            <div class="pola-warunku">
+                <label class="pole"><span>Minimum</span>
+                    <input type="number" id="soil_min" step="1" min="0" max="100" disabled></label>
+                <label class="pole"><span>Maksimum</span>
+                    <input type="number" id="soil_max" step="1" min="0" max="100" disabled></label>
+            </div>
+
+            <p class="uwaga-warunku">Ponizej minimum wlacza sie podlewanie, powyzej
+               maksimum pompka nie dolewa wody.</p>
+        </div>
+    </div>
+
+    <div class="stopka-warunkow">
+        <button type="button" class="przycisk" id="przyciskZapisz" disabled>Zapisz warunki</button>
+        <button type="button" class="przycisk drugi" id="przyciskPrzywroc" disabled>Wczytaj ze sterownika</button>
+        <span class="komunikat" id="komunikatWarunkow">Czekam na polaczenie ze sterownikiem</span>
+    </div>
+</div>
+
+<!-- ================= WYKRES + LED ================= -->
+<div class="sekcja">
+    <div class="rzad-gorny">
+        <div class="wykres ramka">
+            <h2>Historia pomiarow</h2>
+
+            <div class="wybor-wykresu" id="wyborWykresu"></div>
+
+            <div class="kontener-wykresu">
+                <div class="zastepnik" id="zastepnikWykresu">
+                    Miejsce na wykres z Google Sheets.<br>
+                    W arkuszu: Plik &rarr; Udostepnij &rarr; Opublikuj w internecie &rarr; wybierz wykres &rarr; Osadz,<br>
+                    skopiuj adres z atrybutu src i wpisz go do listy WYKRESY w skrypcie na dole strony.
+                </div>
+
+                <iframe class="ramkawykresu" id="ramkaWykresu" style="display:none"
+                        title="Wykres pomiarow ze szklarni" loading="lazy"></iframe>
+            </div>
+        </div>
+
+        <div class="panel-led ramka" id="panelLed">
+            <p class="nazwa-urzadzenia">Diody LED</p>
+
+            <div class="paleta-led">
+                <div class="siatka-palety" id="siatkaPalety"></div>
+
+                <div class="wybor-wlasny">
+                    <input type="color" id="kolorWlasny" value="#0f9d6a" disabled>
+                    <span class="etykieta-wlasny">Wlasny kolor</span>
+                </div>
+            </div>
+
+            <button type="button" class="przycisk-auto-led" id="przyciskAutoLed" disabled>Auto</button>
+        </div>
+    </div>
+</div>
+
+<!-- ================= PANEL STEROWANIA ================= -->
+<div class="sekcja">
+    <h2>Sterowanie reczne</h2>
+    <p class="podpis">Przelacz urzadzenie w tryb reczny, zeby wlaczyc je niezaleznie
+       od zadanych warunkow. Tryb automatyczny oddaje sterowanie sterownikowi.</p>
+
+    <div class="karty-manualne">
+        <div class="karta-urzadzenia ramka" id="kartaPompka">
+            <div class="glowka-urzadzenia">
+                <p class="nazwa-urzadzenia">Pompka</p>
+                <div class="tryb-urzadzenia" data-urzadzenie="pump">
+                    <button type="button" data-tryb="auto" disabled>Auto</button>
+                    <button type="button" data-tryb="manual" disabled>Recznie</button>
+                </div>
+            </div>
+
+            <div class="przelacznik-onoff">
+                <button type="button" data-urzadzenie="pump" data-cmd="pompka_on" disabled>Wlacz</button>
+                <button type="button" data-urzadzenie="pump" data-cmd="pompka_off" disabled>Wylacz</button>
+            </div>
+
+            <p class="stan-urzadzenia">Stan: <span id="stanPompki">--</span></p>
+        </div>
+
+        <div class="karta-urzadzenia ramka" id="kartaWiatrak">
+            <div class="glowka-urzadzenia">
+                <p class="nazwa-urzadzenia">Wiatrak</p>
+                <div class="tryb-urzadzenia" data-urzadzenie="fan">
+                    <button type="button" data-tryb="auto" disabled>Auto</button>
+                    <button type="button" data-tryb="manual" disabled>Recznie</button>
+                </div>
+            </div>
+
+            <div class="przelacznik-onoff">
+                <button type="button" data-urzadzenie="fan" data-cmd="wiatrak_on" disabled>Wlacz</button>
+                <button type="button" data-urzadzenie="fan" data-cmd="wiatrak_off" disabled>Wylacz</button>
+            </div>
+
+            <p class="stan-urzadzenia">Stan: <span id="stanWiatraka">--</span></p>
+        </div>
+    </div>
+</div>
+<br><br><br><br>
+
+<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+<script>
+/* ==================================================
+   KONFIGURACJA - dopasowana do kodu ESP32 (HiveMQ Cloud)
+   ================================================== */
+
+const BROKER = "wss://548b79c9bba044dc8eb4cd3fc0d2767c.s1.eu.hivemq.cloud:8884/mqtt";
+
+const MQTT_USER = "Stronainternetowa";
+const MQTT_PASS = "Morfeusz";
+
+const TEMATY = {
+    temperatura: "greenhouse/sensors/temperature",
+    wilgotnosc:  "greenhouse/sensors/humidity",
+    gleba:       "greenhouse/sensors/moisture_percent",
+    stanPelny:   "greenhouse/state/full",
+    ustawienia:  "greenhouse/state/settings",
+    online:      "if_is_working/good",
+
+    sterPompka:  "greenhouse/control/pump",
+    sterWiatrak: "greenhouse/control/fan",
+    sterLed:     "greenhouse/control/led",
+    sterWarunki: "greenhouse/control/settings"
+};
+
+/* Lista dostepnych wykresow - kazdy ma etykiete (przycisk) i adres iframe. */
+const WYKRESY = [
+    {
+        nazwa: "Temperatura",
+        adres: "https://docs.google.com/spreadsheets/d/e/2PACX-1vS9blKESl7lEPiR7QkISZV4VTM0u_4Tzw1vbeWOK-lWjE6OOnfKrltxTJKmchFOjk0VGuBTLzdJn4A8/pubchart?oid=2110625866&format=interactive"
+    },
+    {
+        nazwa: "Wilgotnosc powietrza",
+        adres: "https://docs.google.com/spreadsheets/d/e/2PACX-1vS9blKESl7lEPiR7QkISZV4VTM0u_4Tzw1vbeWOK-lWjE6OOnfKrltxTJKmchFOjk0VGuBTLzdJn4A8/pubchart?oid=519169856&format=interactive"
+    },
+    {
+        nazwa: "Wilgotnosc gleby",
+        adres: "https://docs.google.com/spreadsheets/d/e/2PACX-1vS9blKESl7lEPiR7QkISZV4VTM0u_4Tzw1vbeWOK-lWjE6OOnfKrltxTJKmchFOjk0VGuBTLzdJn4A8/pubchart?oid=518040917&format=interactive"
+    }
+];
+
+const LIMIT_CISZY = 15;
+
+
+/* ==================================================
+   WYKRES - przelacznik + wczytywanie adresu
+   ================================================== */
+const ramkaWykresu = document.getElementById("ramkaWykresu");
+const zastepnikWykresu = document.getElementById("zastepnikWykresu");
+const wyborWykresu = document.getElementById("wyborWykresu");
+const kontenerWykresu = document.querySelector(".kontener-wykresu");
+
+const NATYWNA_SZEROKOSC_WYKRESU = 620;
+
+function pokazWykres(indeks) {
+    const wykres = WYKRESY[indeks];
+    if (!wykres || !wykres.adres) return;
+
+    ramkaWykresu.src = wykres.adres;
+    ramkaWykresu.style.display = "block";
+    zastepnikWykresu.style.display = "none";
+
+    wyborWykresu.querySelectorAll("button").forEach((b, i) => {
+        b.classList.toggle("wybrany", i === indeks);
+    });
+}
+
+function zbudujWyborWykresu() {
+    WYKRESY.forEach((wykres, indeks) => {
+        const przycisk = document.createElement("button");
+        przycisk.type = "button";
+        przycisk.textContent = wykres.nazwa;
+        przycisk.addEventListener("click", () => pokazWykres(indeks));
+        wyborWykresu.appendChild(przycisk);
+    });
+}
+
+if (WYKRESY.length > 0) {
+    zbudujWyborWykresu();
+    pokazWykres(0);
+}
+
+function przeskalujWykres() {
+    const dostepnaSzerokosc = kontenerWykresu.clientWidth;
+    const skala = Math.min(1, dostepnaSzerokosc / NATYWNA_SZEROKOSC_WYKRESU);
+    ramkaWykresu.style.transform = `scale(${skala})`;
+}
+
+przeskalujWykres();
+
+let licznikSkalowania = null;
+function zaplanujPrzeskalowanie() {
+    clearTimeout(licznikSkalowania);
+    licznikSkalowania = setTimeout(przeskalujWykres, 100);
+}
+
+if (window.ResizeObserver) {
+    new ResizeObserver(zaplanujPrzeskalowanie).observe(kontenerWykresu);
+} else {
+    window.addEventListener("resize", zaplanujPrzeskalowanie);
+}
+
+
+/* ==================================================
+   WARUNKI DLA ROSLIN
+   Kazdy zakres ma: skale (min/max osi), pola formularza, kafelek odczytu
+   ================================================== */
+const ZAKRESY = {
+    temp: {
+        osMin: 0,  osMax: 50,  jednostka: "\u00B0C", miejsca: 1,
+        poleMin: "temp_min", poleMax: "temp_max",
+        strefa: "strefaTemp", znacznik: "znacznikTemp", teraz: "terazTemp",
+        kafelek: "kafelekTemp"
+    },
+    hum: {
+        osMin: 0,  osMax: 100, jednostka: "%", miejsca: 0,
+        poleMin: "hum_min", poleMax: "hum_max",
+        strefa: "strefaHum", znacznik: "znacznikHum", teraz: "terazHum",
+        kafelek: "kafelekWilg"
+    },
+    soil: {
+        osMin: 0,  osMax: 100, jednostka: "%", miejsca: 0,
+        poleMin: "soil_min", poleMax: "soil_max",
+        strefa: "strefaSoil", znacznik: "znacznikSoil", teraz: "terazSoil",
+        kafelek: "kafelekGleba"
+    }
+};
+
+// limity narzucane przez sterownik (validateSettings w kodzie ESP32)
+const LIMITY_ESP = {
+    temp: { maxMin: 45, odstep: 1 },
+    hum:  { maxMin: 95, odstep: 5 },
+    soil: { maxMin: 90, odstep: 5 }
+};
+
+// biezace odczyty z czujnikow
+const odczyty = { temp: null, hum: null, soil: null };
+
+// ostatnie warunki potwierdzone przez sterownik
+let warunkiZUrzadzenia = null;
+
+// true, gdy uzytkownik zaczal edytowac pola - wtedy nie nadpisujemy ich
+// wartosciami przychodzacymi ze sterownika
+let trwaEdycja = false;
+
+const przyciskZapisz = document.getElementById("przyciskZapisz");
+const przyciskPrzywroc = document.getElementById("przyciskPrzywroc");
+const komunikatWarunkow = document.getElementById("komunikatWarunkow");
+
+function pokazKomunikat(tekst, rodzaj) {
+    komunikatWarunkow.textContent = tekst;
+    komunikatWarunkow.className = "komunikat" + (rodzaj ? " " + rodzaj : "");
+}
+
+function procentNaOsi(zakres, wartosc) {
+    const p = (wartosc - zakres.osMin) / (zakres.osMax - zakres.osMin) * 100;
+    return Math.max(0, Math.min(100, p));
+}
+
+function odswiezSkale(klucz) {
+    const zakres = ZAKRESY[klucz];
+    const min = parseFloat(document.getElementById(zakres.poleMin).value);
+    const max = parseFloat(document.getElementById(zakres.poleMax).value);
+
+    const strefa = document.getElementById(zakres.strefa);
+    if (!isNaN(min) && !isNaN(max) && max > min) {
+        const lewo = procentNaOsi(zakres, min);
+        const prawo = procentNaOsi(zakres, max);
+        strefa.style.left = lewo + "%";
+        strefa.style.width = (prawo - lewo) + "%";
+        strefa.style.display = "block";
+    } else {
+        strefa.style.display = "none";
+    }
+
+    const znacznik = document.getElementById(zakres.znacznik);
+    const teraz = document.getElementById(zakres.teraz);
+    const wartosc = odczyty[klucz];
+    const kafelek = document.getElementById(zakres.kafelek);
+
+    if (wartosc === null || isNaN(wartosc)) {
+        znacznik.classList.remove("widoczny");
+        teraz.textContent = "brak odczytu";
+        kafelek.classList.remove("w-zakresie", "poza-zakresem");
+        return;
+    }
+
+    znacznik.classList.add("widoczny");
+    znacznik.style.left = procentNaOsi(zakres, wartosc) + "%";
+    teraz.textContent = wartosc.toFixed(zakres.miejsca) + " " + zakres.jednostka;
+
+    const poza = !isNaN(min) && !isNaN(max) && (wartosc < min || wartosc > max);
+    znacznik.classList.toggle("poza", poza);
+    kafelek.classList.toggle("poza-zakresem", poza);
+    kafelek.classList.toggle("w-zakresie", !poza);
+}
+
+function odswiezWszystkieSkale() {
+    Object.keys(ZAKRESY).forEach(odswiezSkale);
+}
+
+// wypelnia formularz warunkami odebranymi ze sterownika
+function wpiszWarunki(dane) {
+    const pary = [
+        ["temp_min", dane.temp_min], ["temp_max", dane.temp_max],
+        ["hum_min",  dane.hum_min],  ["hum_max",  dane.hum_max],
+        ["soil_min", dane.soil_min], ["soil_max", dane.soil_max]
+    ];
+
+    pary.forEach(([id, wartosc]) => {
+        if (wartosc === undefined || wartosc === null) return;
+        document.getElementById(id).value = wartosc;
+    });
+
+    odswiezWszystkieSkale();
+}
+
+function obsluzUstawienia(tresc) {
+    let dane;
+    try {
+        dane = JSON.parse(tresc);
+    } catch (e) {
+        return;
+    }
+
+    warunkiZUrzadzenia = dane;
+
+    if (trwaEdycja) {
+        pokazKomunikat("Sterownik przyslal inne warunki - zapisz albo wczytaj je ponownie", "blad");
+        return;
+    }
+
+    wpiszWarunki(dane);
+    pokazKomunikat("Warunki zgodne ze sterownikiem", "ok");
+}
+
+// walidacja przed wyslaniem - ta sama logika co validateSettings w kodzie ESP32
+function sprawdzFormularz() {
+    const wartosci = {};
+    for (const klucz in ZAKRESY) {
+        const zakres = ZAKRESY[klucz];
+        const min = parseFloat(document.getElementById(zakres.poleMin).value);
+        const max = parseFloat(document.getElementById(zakres.poleMax).value);
+
+        if (isNaN(min) || isNaN(max)) return { blad: "Uzupelnij wszystkie pola" };
+        if (min < zakres.osMin || max > zakres.osMax) {
+            return { blad: "Wartosci musza miescic sie w zakresie skali" };
+        }
+
+        const lim = LIMITY_ESP[klucz];
+        if (min > lim.maxMin) {
+            return { blad: "Minimum nie moze byc wieksze niz " + lim.maxMin };
+        }
+        if (max - min < lim.odstep) {
+            return { blad: "Maksimum musi byc wieksze od minimum o co najmniej " + lim.odstep };
+        }
+
+        wartosci[zakres.poleMin] = min;
+        wartosci[zakres.poleMax] = max;
+    }
+    return { wartosci };
+}
+
+document.querySelectorAll(".pola-warunku input").forEach(pole => {
+    pole.addEventListener("input", () => {
+        trwaEdycja = true;
+        odswiezWszystkieSkale();
+        pokazKomunikat("Zmiany nie zostaly jeszcze wyslane do sterownika");
+    });
+});
+
+przyciskZapisz.addEventListener("click", () => {
+    const wynik = sprawdzFormularz();
+    if (wynik.blad) {
+        pokazKomunikat(wynik.blad, "blad");
+        return;
+    }
+
+    const komenda = "set:" + Object.entries(wynik.wartosci)
+        .map(([klucz, wartosc]) => klucz + "=" + wartosc)
+        .join(";");
+
+    klient.publish(TEMATY.sterWarunki, komenda);
+    trwaEdycja = false;
+    pokazKomunikat("Wyslano do sterownika, czekam na potwierdzenie");
+});
+
+przyciskPrzywroc.addEventListener("click", () => {
+    if (warunkiZUrzadzenia) {
+        trwaEdycja = false;
+        wpiszWarunki(warunkiZUrzadzenia);
+        pokazKomunikat("Wczytano warunki ze sterownika", "ok");
+    } else {
+        klient.publish(TEMATY.sterWarunki, "get_settings");
+        pokazKomunikat("Pytam sterownik o zapisane warunki");
+    }
+});
+
+
+/* ==================================================
+   STAN POLACZENIA
+   ================================================== */
+const boxPolaczenia = document.getElementById("polaczenie");
+const etykieta = document.getElementById("etykietaPolaczenia");
+
+let ostatniaWiadomosc = 0;
+let polaczonyZUrzadzeniem = false;
+
+const trybyUrzadzen = { pump: "auto", fan: "auto" };
+
+function ustawStan(stan, tekst) {
+    boxPolaczenia.classList.remove("online", "offline");
+    if (stan) boxPolaczenia.classList.add(stan);
+    etykieta.textContent = tekst;
+
+    polaczonyZUrzadzeniem = (stan === "online");
+
+    document.querySelectorAll(".kafelek").forEach(k => {
+        k.classList.toggle("stare", !polaczonyZUrzadzeniem);
+    });
+
+    document.querySelectorAll(".tryb-urzadzenia button").forEach(b => {
+        b.disabled = !polaczonyZUrzadzeniem;
+    });
+
+    odswiezDostepnoscAkcji();
+}
+
+function odswiezDostepnoscAkcji() {
+    document.querySelectorAll('.przelacznik-onoff button[data-urzadzenie]').forEach(b => {
+        const urz = b.dataset.urzadzenie;
+        b.disabled = !(polaczonyZUrzadzeniem && trybyUrzadzen[urz] === "manual");
+    });
+
+    document.querySelectorAll('.kolorek').forEach(b => { b.disabled = !polaczonyZUrzadzeniem; });
+    document.getElementById("kolorWlasny").disabled = !polaczonyZUrzadzeniem;
+    document.getElementById("przyciskAutoLed").disabled = !polaczonyZUrzadzeniem;
+
+    document.querySelectorAll(".pola-warunku input").forEach(p => {
+        p.disabled = !polaczonyZUrzadzeniem;
+    });
+    przyciskZapisz.disabled = !polaczonyZUrzadzeniem;
+    przyciskPrzywroc.disabled = !polaczonyZUrzadzeniem;
+
+    if (!polaczonyZUrzadzeniem && !trwaEdycja) {
+        pokazKomunikat("Brak polaczenia ze sterownikiem - zmiana warunkow niedostepna");
+    }
+}
+
+ustawStan(null, "Laczenie");
+
+
+/* ==================================================
+   POLACZENIE MQTT
+   ================================================== */
+const klient = mqtt.connect(BROKER, {
+    username: MQTT_USER,
+    password: MQTT_PASS,
+    clientId: "strona-szklarnia-" + Math.random().toString(16).slice(2, 8),
+    reconnectPeriod: 4000,
+    connectTimeout: 8000
+});
+
+klient.on("connect", () => {
+    ustawStan("offline", "Broker OK");
+    klient.subscribe(TEMATY.temperatura);
+    klient.subscribe(TEMATY.wilgotnosc);
+    klient.subscribe(TEMATY.gleba);
+    klient.subscribe(TEMATY.stanPelny);
+    klient.subscribe(TEMATY.ustawienia);
+    klient.subscribe(TEMATY.online);
+    klient.publish(TEMATY.sterWarunki, "get_settings");
+});
+
+klient.on("reconnect", () => ustawStan(null, "Laczenie"));
+klient.on("close",     () => ustawStan("offline", "Brak brokera"));
+klient.on("error",     () => ustawStan("offline", "Blad polaczenia"));
+
+klient.on("message", (temat, ladunek) => {
+    const tresc = ladunek.toString().trim();
+
+    // ESP32 ustawia "offline" (LWT) gdy traci polaczenie z brokerem;
+    // "online" nie ustawia statusu - zrobi to pierwszy pomiar lub status
+    if (temat === TEMATY.online) {
+        if (tresc === "offline") {
+            ostatniaWiadomosc = 0;
+            ustawStan("offline", "Sterownik offline");
+        }
+        return;
+    }
+
+    // wiadomosc zachowana na brokerze (retained) nie oznacza jeszcze, ze
+    // sterownik jest online - warunki moga przyjsc nawet przy wylaczonym ESP32
+    if (temat !== TEMATY.ustawienia) {
+        ostatniaWiadomosc = Date.now();
+        ustawStan("online", "Podlaczony");
+    }
+
+    if (temat === TEMATY.temperatura) pokaz("wartoscTemp", "temp", tresc, 1);
+    if (temat === TEMATY.wilgotnosc)  pokaz("wartoscWilg", "hum",  tresc, 0);
+    if (temat === TEMATY.gleba)       pokaz("wartoscGleba", "soil", tresc, 0);
+    if (temat === TEMATY.stanPelny)   obsluzStanPelny(tresc);
+    if (temat === TEMATY.ustawienia)  obsluzUstawienia(tresc);
+});
+
+function pokaz(idPola, kluczZakresu, tresc, miejscaPoPrzecinku) {
+    const liczba = parseFloat(tresc.replace(",", "."));
+    document.getElementById(idPola).textContent =
+        isNaN(liczba) ? tresc : liczba.toFixed(miejscaPoPrzecinku);
+
+    if (!isNaN(liczba)) {
+        odczyty[kluczZakresu] = liczba;
+        odswiezSkale(kluczZakresu);
+    }
+}
+
+const OPIS_WODY = { 1: " (podlewanie)", 2: " (wsiakanie)" };
+
+function zaznaczOnOff(urzadzenie, wlaczone) {
+    document.querySelectorAll(
+        `.przelacznik-onoff button[data-urzadzenie="${urzadzenie}"]`
+    ).forEach(b => {
+        b.classList.toggle("wybrany", b.dataset.cmd.endsWith(wlaczone ? "_on" : "_off"));
+    });
+}
+
+// format zgodny z publishStatus() w kodzie ESP32
+function obsluzStanPelny(tresc) {
+    let dane;
+    try {
+        dane = JSON.parse(tresc);
+    } catch (e) {
+        return;
+    }
+
+    if (typeof dane.pump === "boolean") {
+        document.getElementById("stanPompki").textContent =
+            (dane.pump ? "Wlaczona" : "Wylaczona") + (OPIS_WODY[dane.water_state] || "");
+        zaznaczOnOff("pump", dane.pump);
+    }
+
+    if (typeof dane.fan === "boolean") {
+        document.getElementById("stanWiatraka").textContent = dane.fan ? "Wlaczony" : "Wylaczony";
+        zaznaczOnOff("fan", dane.fan);
+    }
+
+    if (typeof dane.auto_pump === "boolean") zastosujTryb("pump", dane.auto_pump ? "auto" : "manual");
+    if (typeof dane.auto_fan === "boolean")  zastosujTryb("fan",  dane.auto_fan  ? "auto" : "manual");
+    if (typeof dane.auto_led === "boolean")  odzwierciedlTrybLed(dane.auto_led ? "auto" : "reczny");
+}
+
+setInterval(() => {
+    if (!ostatniaWiadomosc) return;
+    if (Date.now() - ostatniaWiadomosc > LIMIT_CISZY * 1000) {
+        ustawStan("offline", "Brak danych");
+    }
+}, 5000);
+
+
+/* ==================================================
+   TRYB AUTO / MANUAL (pompka, wiatrak)
+   ================================================== */
+function zastosujTryb(urzadzenie, tryb) {
+    trybyUrzadzen[urzadzenie] = tryb;
+
+    document.querySelectorAll(`.tryb-urzadzenia[data-urzadzenie="${urzadzenie}"] button`)
+        .forEach(b => b.classList.toggle("wybrany", b.dataset.tryb === tryb));
+
+    odswiezDostepnoscAkcji();
+}
+
+const TEMAT_STEROWANIA = { pump: TEMATY.sterPompka, fan: TEMATY.sterWiatrak };
+const KOMENDA_TRYBU = {
+    pump: { auto: "auto_pump",  manual: "manual_pump" },
+    fan:  { auto: "auto_fan",   manual: "manual_fan"  }
+};
+
+document.querySelectorAll(".tryb-urzadzenia button").forEach(przycisk => {
+    przycisk.addEventListener("click", () => {
+        const urzadzenie = przycisk.closest(".tryb-urzadzenia").dataset.urzadzenie;
+        const tryb = przycisk.dataset.tryb;
+
+        klient.publish(TEMAT_STEROWANIA[urzadzenie], KOMENDA_TRYBU[urzadzenie][tryb]);
+        zastosujTryb(urzadzenie, tryb);
+    });
+});
+
+
+/* ==================================================
+   WLACZ / WYLACZ (pompka, wiatrak) - dziala tylko w trybie recznym
+   ================================================== */
+document.querySelectorAll(".przelacznik-onoff button[data-urzadzenie]").forEach(przycisk => {
+    przycisk.addEventListener("click", () => {
+        const urzadzenie = przycisk.dataset.urzadzenie;
+        klient.publish(TEMAT_STEROWANIA[urzadzenie], przycisk.dataset.cmd);
+
+        przycisk.parentElement.querySelectorAll("button")
+            .forEach(b => b.classList.remove("wybrany"));
+        przycisk.classList.add("wybrany");
+    });
+});
+
+
+/* ==================================================
+   DIODY LED - paleta + wlasny kolor + auto
+   ================================================== */
+const PRESETY_LED = [
+    { nazwa: "Czerwony",      hex: "#c0392b" },
+    { nazwa: "Pomaranczowy",  hex: "#d9822b" },
+    { nazwa: "Zolty",         hex: "#d4b106" },
+    { nazwa: "Zielony",       hex: "#3f7a4e" },
+    { nazwa: "Turkusowy",     hex: "#1f9c8a" },
+    { nazwa: "Niebieski",     hex: "#2d5a96" },
+    { nazwa: "Fioletowy",     hex: "#6a4c93" },
+    { nazwa: "Rozowy",        hex: "#c2447a" },
+    { nazwa: "Bialy",         hex: "#f2f2f2" }
+];
+
+const siatkaPalety = document.getElementById("siatkaPalety");
+const wejscieKoloruWlasnego = document.getElementById("kolorWlasny");
+const przyciskAutoLed = document.getElementById("przyciskAutoLed");
+
+function zbudujPaleteLed() {
+    PRESETY_LED.forEach(kolor => {
+        const przycisk = document.createElement("button");
+        przycisk.type = "button";
+        przycisk.className = "kolorek";
+        przycisk.style.backgroundColor = kolor.hex;
+        przycisk.setAttribute("aria-label", kolor.nazwa);
+        przycisk.dataset.hex = kolor.hex;
+        przycisk.disabled = true;
+        siatkaPalety.appendChild(przycisk);
+    });
+
+    const wylacz = document.createElement("button");
+    wylacz.type = "button";
+    wylacz.className = "kolorek wylaczony";
+    wylacz.setAttribute("aria-label", "Wylaczone");
+    wylacz.dataset.led = "led_off";
+    wylacz.disabled = true;
+    siatkaPalety.appendChild(wylacz);
+}
+zbudujPaleteLed();
+
+function wyczyscPodswietleniaLed() {
+    document.querySelectorAll(".kolorek").forEach(b => b.classList.remove("aktywny"));
+    przyciskAutoLed.classList.remove("wybrany");
+}
+
+function odzwierciedlTrybLed(tryb) {
+    przyciskAutoLed.classList.toggle("wybrany", tryb === "auto");
+}
+
+siatkaPalety.addEventListener("click", (event) => {
+    const przycisk = event.target.closest(".kolorek");
+    if (!przycisk || przycisk.disabled) return;
+
+    if (przycisk.dataset.led === "led_off") {
+        klient.publish(TEMATY.sterLed, "led_off");
+    } else {
+        klient.publish(TEMATY.sterLed, "led_custom:" + przycisk.dataset.hex);
+    }
+
+    wyczyscPodswietleniaLed();
+    przycisk.classList.add("aktywny");
+});
+
+wejscieKoloruWlasnego.addEventListener("input", () => {
+    klient.publish(TEMATY.sterLed, "led_custom:" + wejscieKoloruWlasnego.value);
+    wyczyscPodswietleniaLed();
+});
+
+przyciskAutoLed.addEventListener("click", () => {
+    klient.publish(TEMATY.sterLed, "auto_led");
+    wyczyscPodswietleniaLed();
+    przyciskAutoLed.classList.add("wybrany");
+});
+</script>
+
+</body>
+</html>

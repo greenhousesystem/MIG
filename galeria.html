@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moja szklarnia</title>
+<link  rel="stylesheet" href="css.css">
+<style>
+
+
+:root {
+    --forest: #0f3d2e;
+    --green: #2f7d4f;
+    --leaf: #6bb27f;
+    --mint: #cfe9d8;
+    --mist: #eef7f1;
+    --white: #ffffff;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--white);
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--forest);
+  }
+
+  /* The gallery element: full width, white background */
+  .gallery {
+    width: 100%;
+    background: var(--white);
+    padding: 32px clamp(16px, 4vw, 56px);
+  }
+
+  .gallery h2 {
+    margin: 0 0 20px;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    font-weight: 600;
+    color: var(--forest);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-auto-rows: 500px;
+    grid-auto-flow: dense;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
+  }
+
+  .gallery-item {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--mist);
+    border: 1px solid var(--mint);
+  }
+
+  .gallery-item.wide { grid-column: span 2; }
+  .gallery-item.tall { grid-row: span 2; }
+
+  /* Swap .ph divs for <img> tags; the gradients are placeholders */
+  .gallery-item img,
+  .gallery-item .ph {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease;
+  }
+
+  .gallery-item:hover img,
+  .gallery-item:hover .ph,
+  .gallery-item:focus-within img,
+  .gallery-item:focus-within .ph { transform: scale(1.05); }
+
+  .gallery-item figcaption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 40px 20px 18px;
+    color: var(--white);
+    font-size: 1.1rem;
+    background: linear-gradient(to top, rgba(15, 61, 46, .85), transparent);
+    transform: translateY(100%);
+    transition: transform .3s ease;
+  }
+
+  .gallery-item:hover figcaption,
+  .gallery-item:focus-within figcaption { transform: translateY(0); }
+
+  .gallery-item a { display: block; height: 100%; color: inherit; text-decoration: none; }
+  .gallery-item a:focus-visible { outline: 3px solid var(--green); outline-offset: -3px; }
+
+  .p1 { background: linear-gradient(135deg, var(--green), var(--forest)); }
+  .p2 { background: linear-gradient(160deg, var(--mint), var(--leaf)); }
+  .p3 { background: linear-gradient(120deg, var(--leaf), var(--green)); }
+  .p4 { background: linear-gradient(200deg, var(--forest), var(--leaf)); }
+  .p5 { background: linear-gradient(135deg, var(--mist), var(--mint)); }
+  .p6 { background: linear-gradient(150deg, var(--green), var(--mint)); }
+
+</style>
+</head>
+
+<body>
+
+<div class="nagluwek">
+    <div class="title">
+        <a href="onas.html">
+            <img src="logo.png" alt="Logo" style="height: 60px;">
+        </a>
+    </div>
+    <div class="menu">
+        <svg
+        xmlns="http://www.w3.org/2000/svg" class="sandwich" viewBox="0 0 40 40"  fill="none" aria-label="Menu">
+        <line x1="8" y1="12" x2="32" y2="12"
+              stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+        <line x1="8" y1="20" x2="32" y2="20"
+              stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+        <line x1="8" y1="28" x2="32" y2="28"
+              stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+      </svg>
+
+    </div>
+    <div class="menuwrapper">
+        <a href="onas.html">
+        <div class="menuoption" style="--in-delay: 0s; --out-delay: 0.28s; top: 84px; border-top-left-radius: 6px;"> O NAS</div>
+        </a>
+        <a href="galeria.html">
+        <div class="menuoption" style="--in-delay: 0.14s; --out-delay: 0.14s; top: 184px;"> GALERIA </div>
+        </a>
+        <a href="mojaszklarnia.html">
+              <div class="menuoption" style="--in-delay: 0.28s; --out-delay: 0s; top: 284px; border-bottom: 5px solid rgb(45, 184, 45);  border-bottom-left-radius: 6px;"> PANEL SZKLARNI</div>
+        </a>
+         </div>
+</div>
+
+
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////-->
+<div style="width: 100%; height: 500px; background-color: rgb(72, 161, 106);">
+    <canvas
+      id="bg"
+      style="
+        position: relative;
+        width: 100%;
+        height: 100%;
+        -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 60px), transparent 100%);
+        mask-image: linear-gradient(to bottom, #000 calc(100% - 60px), transparent 100%);
+      "
+    ></canvas>
+  
+    <script type="module">
+      import { createShader } from 'https://esm.sh/shaders/js';
+  
+      await createShader(document.getElementById('bg'), {
+        components: [
+          {
+            type: 'SolidColor',
+            props: {
+              color: '#149941'
+            }
+          },
+  
+          {
+            type: 'TimeTrail',
+            props: {
+              trailSource: 'motion',
+              trailLength: 0,
+              diffusion: 0.1,
+              trailOpacity: 0.4,
+              trailBlend: 'normal',
+              speed: 4
+            },
+  
+            children: [
+              {
+                type: 'ContourLines',
+                props: {
+                  levels: 0.9,
+                  gamma: 1,
+                  lineWidth: 1.75,
+                  softness: 0.4,
+                  colorMode: 'custom',
+                  lineColor: '#5cdb79',
+                  backgroundColor: 'transparent'
+                },
+  
+                children: [
+                  {
+                    type: 'PerlinNoise',
+                    props: {
+                      scale: 2.3,
+                      seed: 0,
+                      speed: 0.15
+                    }
+                  },
+  
+                  {
+                    type: 'Blob',
+                    props: {
+                      colorA: '#666666',
+                      colorB: '#666666',
+                      size: 0.1,
+                      deformation: 0.75,
+                      softness: 0.4,
+                      highlightIntensity: 0,
+                      speed: 1,
+                      seed: 4,
+  
+                      center: {
+                        type: 'mouse-position',
+                        smoothing: 0.3,
+                        momentum: 0.25
+                      },
+  
+                      blendMode: 'normal'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      });
+    </script>
+  </div>
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+
+<section class="gallery" aria-label="Photo gallery">
+    <h2>Galeria</h2>
+    <div class="gallery-grid">
+      <figure class="gallery-item wide tall">
+        <a><img src="zdj1.png" alt="zdj1"></a>
+      </figure>
+      <figure class="gallery-item wide" >
+        <a><img src="zdj4.png" alt="zdj2"></a>
+      </figure>
+      <figure class="gallery-item">
+        <a><img src="zdj5.png" alt="zdj3"></a>
+      </figure>
+      <figure class="gallery-item tall">
+        <a><img src="zdj7.png" alt="zdj4"></a>
+      </figure>
+      <figure class="gallery-item">
+        <a><img src="zdj8.png" alt="zdj6"></a>
+      </figure>
+      <figure class="gallery-item wide">
+        <a><img src="zdj6.png" alt="zdj5"></a>
+      </figure>
+    </div>
+  </section>
+
+</body>
+</html>

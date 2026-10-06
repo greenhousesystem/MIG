@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moja szklarnia</title>
+<link  rel="stylesheet" href="css.css">
+<style>
+
+
+/*
+.tekst{
+        padding-top: 100px;
+        margin-left: 10vw;
+        margin-right: 10vw;
+        margin-top: 45px;
+        max-width: 60ch;
+    }
+    .tekst h1{
+        font-size: x-large;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin: 0 0 12px 0;
+    }
+    .tekst p{
+        font-size: small;
+        letter-spacing: 1px;
+        line-height: 1.8;
+        color: rgb(70, 70, 70);
+        margin: 0;
+    }
+
+    */
+    .tekst {
+    padding: 40px;
+    margin: 45px 10vw 0;
+    max-width: 60ch;
+
+    background: #f1f8f3;
+    border: 3px solid #f2f2f2;
+    border-left: 5px solid #2e7d32;
+    border-radius: 0 12px 12px 0;
+
+    box-shadow: 0 8px 25px rgba(46, 125, 50, 0.08);
+}
+
+.tekst h1 {
+    font-size: x-large;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 0 0 20px 0;
+
+    color: #1b5e20;
+}
+
+.tekst h1::after {
+    content: "";
+    display: block;
+    width: 55px;
+    height: 4px;
+    margin-top: 8px;
+
+    background: #43a047;
+    border-radius: 10px;
+}
+
+.tekst p {
+    font-size: small;
+    letter-spacing: 1px;
+    line-height: 1.8;
+
+    color: #35543a;
+    margin: 0 0 18px 0;
+}
+
+.tekst p:last-child {
+    margin-bottom: 0;
+}
+
+
+
+.tekst {
+    transition: 0.2s;}
+
+.tekst:hover {
+    z-index: 2;
+    transform: scale(1.03);
+    transition: 0.2s;
+
+}
+
+
+    /* ---------- rozrzucona galeria ---------- */
+    .tablica{
+        position: relative;
+        width: 80vw;
+        margin: 60px 10vw 80px 10vw;
+        height: 62vw;
+    }
+
+    .ramka{
+        position: absolute;
+        background-color: rgb(255, 255, 255);
+        border: 5px solid rgb(212, 211, 211);
+        padding: 6px;
+        box-sizing: border-box;
+    }
+    .ramka img{
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: 0.4s;
+    }
+    .ramka:hover img{
+        filter: brightness(40%);
+        transition: 0.6s;
+    }
+    .podpis{
+        margin-top: 10px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 0.95vw;
+        color: rgb(0, 0, 0);
+    }
+   /* pozycje wg rysunku ideowego */
+   .r1 { left: 6%;  top: 12%; width: 12%; aspect-ratio: 5/4;  transform: rotate(-2deg); }
+    .r2 { left: 20%; top: 17%; width: 17%; aspect-ratio: 3/2;  transform: rotate(1.5deg); }
+    .r3 { left: 41%; top: 4%;  width: 17%; aspect-ratio: 5/3;  transform: rotate(-1deg); }
+    .r4 { left: 51%; top: 22%; width: 23%; aspect-ratio: 3/2;  transform: rotate(1deg); }
+    .r5 { left: 77%; top: 14%; width: 18%; aspect-ratio: 8/5;  transform: rotate(-1.5deg); }
+    .r6 { left: 7%;  top: 44%; width: 11%; aspect-ratio: 6/5;  transform: rotate(2deg); }
+    .r7 { left: 26%; top: 48%; width: 20%; aspect-ratio: 3/2;  transform: rotate(-1deg); }
+    .r8 { left: 55%; top: 53%; width: 22%; aspect-ratio: 7/4;  transform: rotate(2deg); }
+    .r9 { left: 80%; top: 45%; width: 14%; aspect-ratio: 5/4;  transform: rotate(-2deg); }
+    .r10{ left: 36%; top: 76%; width: 16%; aspect-ratio: 3/2;  transform: rotate(1deg); }
+
+    /* trzy najwieksze maja podpis pod spodem:
+       proporcje przenosimy z ramki na sam kadr ze zdjeciem,
+       zeby podpis mogl dolozyc swoja wysokosc */
+    .zpodpisem{
+        aspect-ratio: auto;
+    }
+    .zpodpisem .kadr{
+        width: 100%;
+    }
+    .r2 .kadr { aspect-ratio: 3/2; }
+    .r4 .kadr { aspect-ratio: 3/2; }
+    .r7 .kadr { aspect-ratio: 3/2; }
+
+
+</style>
+</head>
+
+<body>
+
+<div class="nagluwek">
+    <div class="title">
+        <a href="onas.html">
+            <img src="logo.png" alt="Logo" style="height: 60px;">
+        </a>
+    </div>
+    <div class="menu">
+        <svg
+        xmlns="http://www.w3.org/2000/svg" class="sandwich" viewBox="0 0 40 40"  fill="none" aria-label="Menu">
+        <line x1="8" y1="12" x2="32" y2="12"
+              stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+        <line x1="8" y1="20" x2="32" y2="20"
+              stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+        <line x1="8" y1="28" x2="32" y2="28"
+              stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+      </svg>
+
+    </div>
+    <div class="menuwrapper">
+        <a href="onas.html">
+        <div class="menuoption" style="--in-delay: 0s; --out-delay: 0.28s; top: 84px; border-top-left-radius: 6px;"> O NAS</div>
+        </a>
+        <a href="galeria.html">
+        <div class="menuoption" style="--in-delay: 0.14s; --out-delay: 0.14s; top: 184px;"> GALERIA </div>
+        </a>
+        <a href="mojaszklarnia.html">
+              <div class="menuoption" style="--in-delay: 0.28s; --out-delay: 0s; top: 284px; border-bottom: 5px solid rgb(45, 184, 45);  border-bottom-left-radius: 6px;"> PANEL SZKLARNI</div>
+        </a>
+         </div>
+</div>
+
+
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////-->
+<div style="width: 100%; height: 500px; background-color: rgb(72, 161, 106);">
+    <canvas
+      id="bg"
+      style="
+        position: relative;
+        width: 100%;
+        height: 100%;
+        -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 60px), transparent 100%);
+        mask-image: linear-gradient(to bottom, #000 calc(100% - 60px), transparent 100%);
+      "
+    ></canvas>
+  
+    <script type="module">
+      import { createShader } from 'https://esm.sh/shaders/js';
+  
+      await createShader(document.getElementById('bg'), {
+        components: [
+          {
+            type: 'SolidColor',
+            props: {
+              color: '#149941'
+            }
+          },
+  
+          {
+            type: 'TimeTrail',
+            props: {
+              trailSource: 'motion',
+              trailLength: 0,
+              diffusion: 0.1,
+              trailOpacity: 0.4,
+              trailBlend: 'normal',
+              speed: 4
+            },
+  
+            children: [
+              {
+                type: 'ContourLines',
+                props: {
+                  levels: 0.9,
+                  gamma: 1,
+                  lineWidth: 1.75,
+                  softness: 0.4,
+                  colorMode: 'custom',
+                  lineColor: '#5cdb79',
+                  backgroundColor: 'transparent'
+                },
+  
+                children: [
+                  {
+                    type: 'PerlinNoise',
+                    props: {
+                      scale: 2.3,
+                      seed: 0,
+                      speed: 0.15
+                    }
+                  },
+  
+                  {
+                    type: 'Blob',
+                    props: {
+                      colorA: '#666666',
+                      colorB: '#666666',
+                      size: 0.1,
+                      deformation: 0.75,
+                      softness: 0.4,
+                      highlightIntensity: 0,
+                      speed: 1,
+                      seed: 4,
+  
+                      center: {
+                        type: 'mouse-position',
+                        smoothing: 0.3,
+                        momentum: 0.25
+                      },
+  
+                      blendMode: 'normal'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      });
+    </script>
+  </div>
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////-->
+
+<div class="tekst">
+    <h1>O nas</h1>
+    <p>Cześć! Miło cię poznać. Nieważne, czy jesteś uczniem czy nauczycielem cieszymy się, że szukasz możliwości rozwoju. Ten projekt jest dla osób, które mają dość monotonnych lekcji i chcą coś zmienić. Wszyscy czasem zatrzymujemy się i myślimy, po co to wszystko? Co daje nam wkuwanie wzorów czy budowy parzydełkowca? Ten projekt powstał, żeby pokazać, że wiedza jest cenna, a sposobów na jej wykorzystanie jest o wiele więcej, niż się wydaje.</p>
+    <p>Nawet jeśli wydaje ci się, że nie masz czasu, pieniędzy lub inteligencji ten projekt jest dowodem na to, że wystarczą same chęci P.S. Cała strona i kod sa pisane na laptopie dla, którego kompilacja 200 linijek kodu to katastrofa i trzeba na to czekać z 10min. </p>
+</div>
+
+<div class="tablica">
+
+    <div class="ramka r1">
+        <img src="z1.jpg">
+    </div>
+
+    <div class="ramka r2 zpodpisem">
+        <div class="kadr"><img src="daylo.jpg"></div>
+        <div class="podpis">Danylo Gargula</div>
+    </div>
+
+    <div class="ramka r3">
+        <img src="z3.jpg">
+    </div>
+
+    <div class="ramka r4 zpodpisem">
+        <div class="kadr"><img src="marcelina.jpeg"></div>
+        <div class="podpis">Marcelina Turek</div>
+    </div>
+
+    <div class="ramka r5">
+        <img src="z5.jpg">
+    </div>
+
+    <div class="ramka r6">
+        <img src="z6.jpg">
+    </div>
+
+    <div class="ramka r7 zpodpisem">
+        <div class="kadr"><img src="maja.jpg"></div>
+        <div class="podpis">Maja Pasterak</div>
+    </div>
+
+    <div class="ramka r8">
+        <img src="header-bg.jpg">
+    </div>
+
+    <div class="ramka r9">
+        <img src="z1.jpg">
+    </div>
+
+    <div class="ramka r10">
+        <img src="z3.jpg">
+    </div>
+
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
