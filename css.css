@@ -754,3 +754,395 @@ height: 600px;
 @media (prefers-reduced-motion: reduce){
     *{ transition: none !important; }
 }
+
+:root {
+    --st-zielen: #149941;
+    --st-zielen-jasny: #5cdb79;
+    --st-zielen-tlo: #eef9f1;
+    --st-ramka: #dfe6e1;
+    --st-tekst: #1d2a22;
+    --st-cichy: #6b7a70;
+    --st-alarm: #c0392b;
+}
+ 
+.st-karta {
+    background: #fff;
+    border: 1px solid var(--st-ramka);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin: 0 0 18px 0;
+    box-shadow: 0 2px 14px rgba(20, 153, 65, 0.06);
+    color: var(--st-tekst);
+}
+ 
+.st-karta h3 {
+    margin: 0 0 6px 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+ 
+.st-mala {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--st-cichy);
+    margin-bottom: 2px;
+}
+ 
+.st-uwaga {
+    font-size: 0.85rem;
+    color: var(--st-cichy);
+    margin: 6px 0 14px 0;
+    line-height: 1.45;
+}
+ 
+.st-rzad {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin: 12px 0;
+}
+ 
+/* ---------- wybor szklarni ---------- */
+ 
+.st-wybor {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    max-width: 1100px;
+    margin: 28px auto 8px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+ 
+.st-etykieta {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--st-cichy);
+}
+ 
+.st-select {
+    min-width: 240px;
+    max-width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--st-zielen);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--st-tekst);
+    font: inherit;
+    cursor: pointer;
+}
+ 
+.st-select:focus {
+    outline: 2px solid var(--st-zielen-jasny);
+    outline-offset: 2px;
+}
+ 
+.st-id {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.8rem;
+    color: var(--st-cichy);
+}
+ 
+/* ---------- przyciski ---------- */
+ 
+.st-btn {
+    padding: 10px 18px;
+    border: 1.5px solid var(--st-zielen);
+    border-radius: 10px;
+    background: var(--st-zielen);
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+ 
+.st-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(20, 153, 65, 0.25);
+}
+ 
+.st-btn.st-drugi {
+    background: #fff;
+    color: var(--st-zielen);
+}
+ 
+.st-btn.st-uwaga-btn {
+    background: #fff;
+    color: var(--st-alarm);
+    border-color: var(--st-alarm);
+}
+ 
+.st-ster:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+ 
+/* ---------- kalibracja ---------- */
+ 
+.st-kal-odczyt {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 16px;
+}
+ 
+.st-kal-odczyt strong {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+ 
+.st-pasek-kal {
+    position: relative;
+    height: 12px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #d9b26f, #5cdb79, #2d7fd6);
+    margin: 18px 4px 6px 4px;
+}
+ 
+.st-pasek-kal .st-znacznik-kal {
+    position: absolute;
+    top: -5px;
+    width: 4px;
+    height: 22px;
+    margin-left: -2px;
+    background: var(--st-tekst);
+    border-radius: 2px;
+    left: 50%;
+    opacity: 0;
+    transition: left 0.25s ease, opacity 0.25s ease;
+}
+ 
+.st-pasek-kal .st-znacznik-kal.widoczny {
+    opacity: 1;
+}
+ 
+.st-pasek-opis {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--st-cichy);
+    margin: 0 4px 10px 4px;
+}
+ 
+/* ---------- podglad LED ---------- */
+ 
+.st-podglad {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 18px;
+    border-radius: 12px;
+    background: #101713;
+    margin-bottom: 16px;
+}
+ 
+.st-led {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #000;
+}
+ 
+/* ---------- przelaczniki segmentowe i chipy ---------- */
+ 
+.st-seg {
+    display: inline-flex;
+    border: 1.5px solid var(--st-zielen);
+    border-radius: 10px;
+    overflow: hidden;
+}
+ 
+.st-seg button {
+    padding: 9px 16px;
+    border: 0;
+    background: #fff;
+    color: var(--st-zielen);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+ 
+.st-seg button.st-on {
+    background: var(--st-zielen);
+    color: #fff;
+}
+ 
+.st-stan {
+    font-size: 0.88rem;
+    color: var(--st-cichy);
+    margin: 10px 0 0 0;
+}
+ 
+.st-chipy {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+ 
+.st-chip {
+    padding: 8px 14px;
+    border: 1.5px solid var(--st-ramka);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--st-tekst);
+    font: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.12s ease, background 0.12s ease;
+}
+ 
+.st-chip:hover:not(:disabled) {
+    border-color: var(--st-zielen);
+}
+ 
+.st-chip.st-on {
+    border-color: var(--st-zielen);
+    background: var(--st-zielen-tlo);
+    color: var(--st-zielen);
+    font-weight: 600;
+}
+ 
+/* ---------- edytor wygladu ---------- */
+ 
+.st-kolory {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin: 6px 0 12px 0;
+}
+ 
+.st-kolor {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.8rem;
+    color: var(--st-cichy);
+}
+ 
+.st-kolor input[type="color"] {
+    width: 54px;
+    height: 36px;
+    padding: 2px;
+    border: 1.5px solid var(--st-ramka);
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+}
+ 
+.st-paleta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: flex-end;
+}
+ 
+.st-swatch {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px var(--st-ramka);
+    cursor: pointer;
+    padding: 0;
+}
+ 
+.st-suwaki {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px 24px;
+    margin-top: 8px;
+}
+ 
+.st-suwaki label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--st-cichy);
+}
+ 
+.st-suwaki input[type="range"] {
+    width: 100%;
+    accent-color: var(--st-zielen);
+}
+ 
+/* ---------- tryb auto ---------- */
+ 
+.st-siatka-auto {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+    margin: 10px 0;
+}
+ 
+.st-przelacznik {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.92rem;
+    cursor: pointer;
+}
+ 
+.st-przelacznik input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--st-zielen);
+}
+ 
+/* ---------- harmonogram ---------- */
+ 
+.st-slot {
+    border: 1.5px solid var(--st-ramka);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 12px 0;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+ 
+.st-slot.st-aktywny {
+    border-color: var(--st-zielen);
+    background: var(--st-zielen-tlo);
+}
+ 
+.st-slot-glowa {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+ 
+.st-slot-glowa input[type="time"] {
+    padding: 6px 8px;
+    border: 1.5px solid var(--st-ramka);
+    border-radius: 8px;
+    font: inherit;
+}
+ 
+.st-znacznik-slotu {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--st-zielen);
+}
+ 
+@media (max-width: 640px) {
+    .st-kal-odczyt {
+        grid-template-columns: repeat(2, 1fr);
+    }
+ 
+    .st-wybor {
+        padding: 0 14px;
+    }
+ 
+    .st-select {
+        min-width: 0;
+        flex: 1 1 100%;
+    }
+}
