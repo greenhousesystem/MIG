@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -6,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Moja szklarnia</title>
 <link rel="stylesheet" href="css.css">
+<link rel="stylesheet" href="studio.css">
 </head>
 
 <body>
@@ -19,27 +19,10 @@
     </div>
 
     <div class="menu">
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="sandwich"
-            viewBox="0 0 40 40"
-            fill="none"
-            aria-label="Menu">
-
-            <line x1="8" y1="12" x2="32" y2="12"
-                  stroke="currentColor"
-                  stroke-width="3"
-                  stroke-linecap="round" />
-
-            <line x1="8" y1="20" x2="32" y2="20"
-                  stroke="currentColor"
-                  stroke-width="3"
-                  stroke-linecap="round" />
-
-            <line x1="8" y1="28" x2="32" y2="28"
-                  stroke="currentColor"
-                  stroke-width="3"
-                  stroke-linecap="round" />
+        <svg xmlns="http://www.w3.org/2000/svg" class="sandwich" viewBox="0 0 40 40" fill="none" aria-label="Menu">
+            <line x1="8" y1="12" x2="32" y2="12" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+            <line x1="8" y1="20" x2="32" y2="20" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+            <line x1="8" y1="28" x2="32" y2="28" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
         </svg>
     </div>
 
@@ -97,10 +80,7 @@
 
                 {
                     type: 'SolidColor',
-
-                    props: {
-                        color: '#149941'
-                    }
+                    props: { color: '#149941' }
                 },
 
                 {
@@ -134,12 +114,7 @@
 
                                 {
                                     type: 'PerlinNoise',
-
-                                    props: {
-                                        scale: 2.3,
-                                        seed: 0,
-                                        speed: 0.15
-                                    }
+                                    props: { scale: 2.3, seed: 0, speed: 0.15 }
                                 },
 
                                 {
@@ -198,35 +173,37 @@
 
     </div>
 
-    <div class="polaczenie ramka"
-         id="polaczenie"
-         role="status"
-         aria-live="polite">
+    <div class="polaczenie ramka" id="polaczenie" role="status" aria-live="polite">
 
         <svg viewBox="0 0 24 24" aria-hidden="true">
-
-            <path class="luk"
-                  d="M12 20.5a1.6 1.6 0 1 0 0-3.2 1.6 1.6 0 0 0 0 3.2z"/>
-
-            <path class="luk"
-                  d="M12 12.6c1.7 0 3.3.7 4.5 1.8l1.6-1.7A9 9 0 0 0 12 10.3a9 9 0 0 0-6.1 2.4l1.6 1.7a6.6 6.6 0 0 1 4.5-1.8z"/>
-
-            <path class="luk"
-                  d="M12 6.4c3 0 5.7 1.1 7.8 3l1.6-1.7A13 13 0 0 0 12 4 13 13 0 0 0 2.6 7.7l1.6 1.7A11 11 0 0 1 12 6.4z"/>
-
-            <path class="krzyzyk"
-                  d="M3 3l18 18"
-                  stroke="rgb(192,57,43)"
-                  stroke-width="2"
-                  fill="none"/>
-
+            <path class="luk" d="M12 20.5a1.6 1.6 0 1 0 0-3.2 1.6 1.6 0 0 0 0 3.2z"/>
+            <path class="luk" d="M12 12.6c1.7 0 3.3.7 4.5 1.8l1.6-1.7A9 9 0 0 0 12 10.3a9 9 0 0 0-6.1 2.4l1.6 1.7a6.6 6.6 0 0 1 4.5-1.8z"/>
+            <path class="luk" d="M12 6.4c3 0 5.7 1.1 7.8 3l1.6-1.7A13 13 0 0 0 12 4 13 13 0 0 0 2.6 7.7l1.6 1.7A11 11 0 0 1 12 6.4z"/>
+            <path class="krzyzyk" d="M3 3l18 18" stroke="rgb(192,57,43)" stroke-width="2" fill="none"/>
         </svg>
 
-        <span class="etykieta" id="etykietaPolaczenia">
-            Łączenie
-        </span>
+        <span class="etykieta" id="etykietaPolaczenia">Łączenie</span>
 
     </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- WYBÓR SZKLARNI -->
+<!-- ========================================================= -->
+
+<div class="st-wybor">
+
+    <label class="st-etykieta" for="wyborSzklarni">Szklarnia</label>
+
+    <select class="st-select" id="wyborSzklarni">
+        <option value="">Szukam szklarni...</option>
+    </select>
+
+    <button type="button" class="st-btn st-drugi" id="przyciskNazwa" disabled>Zmień nazwę</button>
+
+    <span class="st-id" id="idSzklarni"></span>
 
 </div>
 
@@ -238,54 +215,21 @@
 <div class="kafelki">
 
     <div class="kafelek ramka" id="kafelekTemp">
-
         <p class="nazwa">Temperatura</p>
-
-        <p class="wartosc">
-            <span id="wartoscTemp">--</span>
-            <span class="jednostka">&deg;C</span>
-        </p>
-
-        <p class="zrodlo">
-            odczyt na żywo
-        </p>
-
+        <p class="wartosc"><span id="wartoscTemp">--</span> <span class="jednostka">&deg;C</span></p>
+        <p class="zrodlo">odczyt na żywo</p>
     </div>
-
 
     <div class="kafelek ramka" id="kafelekWilg">
-
-        <p class="nazwa">
-            Wilgotność powietrza
-        </p>
-
-        <p class="wartosc">
-            <span id="wartoscWilg">--</span>
-            <span class="jednostka">%</span>
-        </p>
-
-        <p class="zrodlo">
-            odczyt na żywo
-        </p>
-
+        <p class="nazwa">Wilgotność powietrza</p>
+        <p class="wartosc"><span id="wartoscWilg">--</span> <span class="jednostka">%</span></p>
+        <p class="zrodlo">odczyt na żywo</p>
     </div>
 
-
     <div class="kafelek ramka" id="kafelekGleba">
-
-        <p class="nazwa">
-            Wilgotność gleby
-        </p>
-
-        <p class="wartosc">
-            <span id="wartoscGleba">--</span>
-            <span class="jednostka">%</span>
-        </p>
-
-        <p class="zrodlo">
-            odczyt na żywo
-        </p>
-
+        <p class="nazwa">Wilgotność gleby</p>
+        <p class="wartosc"><span id="wartoscGleba">--</span> <span class="jednostka">%</span></p>
+        <p class="zrodlo">odczyt na żywo</p>
     </div>
 
 </div>
@@ -305,272 +249,131 @@
         Po zapisaniu sterownik pamięta warunki nawet po odłączeniu zasilania.
     </p>
 
-
     <div class="karty-warunkow">
 
-
         <!-- TEMPERATURA -->
-
         <div class="karta-warunku ramka" data-zakres="temp">
-
             <div class="glowka-warunku">
-
-                <p class="nazwa">
-                    Temperatura
-                </p>
-
-                <span class="teraz" id="terazTemp">
-                    brak odczytu
-                </span>
-
+                <p class="nazwa">Temperatura</p>
+                <span class="teraz" id="terazTemp">brak odczytu</span>
             </div>
-
-
             <div class="skala">
-
                 <div class="strefa" id="strefaTemp"></div>
-
                 <div class="znacznik" id="znacznikTemp"></div>
-
             </div>
-
-
-            <div class="opis-skali">
-
-                <span>0 &deg;C</span>
-                <span>50 &deg;C</span>
-
-            </div>
-
-
+            <div class="opis-skali"><span>0 &deg;C</span><span>50 &deg;C</span></div>
             <div class="pola-warunku">
-
-                <label class="pole">
-
-                    <span>Minimum</span>
-
-                    <input
-                        type="number"
-                        id="temp_min"
-                        step="0.5"
-                        min="0"
-                        max="50"
-                        disabled>
-
-                </label>
-
-
-                <label class="pole">
-
-                    <span>Maksimum</span>
-
-                    <input
-                        type="number"
-                        id="temp_max"
-                        step="0.5"
-                        min="0"
-                        max="50"
-                        disabled>
-
-                </label>
-
+                <label class="pole"><span>Minimum</span>
+                    <input type="number" id="temp_min" step="0.5" min="0" max="50" disabled></label>
+                <label class="pole"><span>Maksimum</span>
+                    <input type="number" id="temp_max" step="0.5" min="0" max="50" disabled></label>
             </div>
-
-
             <p class="uwaga-warunku">
-
                 Po przekroczeniu maksimum rusza wiatrak.
                 Szklarnia nie ma grzałki, więc spadek poniżej minimum
                 jest tylko sygnalizowany kolorem diod.
-
             </p>
-
         </div>
-
 
         <!-- WILGOTNOŚĆ POWIETRZA -->
-
         <div class="karta-warunku ramka" data-zakres="hum">
-
             <div class="glowka-warunku">
-
-                <p class="nazwa">
-                    Wilgotność powietrza
-                </p>
-
-                <span class="teraz" id="terazHum">
-                    brak odczytu
-                </span>
-
+                <p class="nazwa">Wilgotność powietrza</p>
+                <span class="teraz" id="terazHum">brak odczytu</span>
             </div>
-
-
             <div class="skala">
-
                 <div class="strefa" id="strefaHum"></div>
-
                 <div class="znacznik" id="znacznikHum"></div>
-
             </div>
-
-
-            <div class="opis-skali">
-
-                <span>0 %</span>
-                <span>100 %</span>
-
-            </div>
-
-
+            <div class="opis-skali"><span>0 %</span><span>100 %</span></div>
             <div class="pola-warunku">
-
-                <label class="pole">
-
-                    <span>Minimum</span>
-
-                    <input
-                        type="number"
-                        id="hum_min"
-                        step="1"
-                        min="0"
-                        max="100"
-                        disabled>
-
-                </label>
-
-
-                <label class="pole">
-
-                    <span>Maksimum</span>
-
-                    <input
-                        type="number"
-                        id="hum_max"
-                        step="1"
-                        min="0"
-                        max="100"
-                        disabled>
-
-                </label>
-
+                <label class="pole"><span>Minimum</span>
+                    <input type="number" id="hum_min" step="1" min="0" max="100" disabled></label>
+                <label class="pole"><span>Maksimum</span>
+                    <input type="number" id="hum_max" step="1" min="0" max="100" disabled></label>
             </div>
-
-
             <p class="uwaga-warunku">
-
                 Zbyt wilgotne powietrze sprzyja pleśni,
                 dlatego powyżej maksimum wiatrak przewietrza szklarnię.
-
             </p>
-
         </div>
 
-
         <!-- WILGOTNOŚĆ GLEBY -->
-
         <div class="karta-warunku ramka" data-zakres="soil">
-
             <div class="glowka-warunku">
-
-                <p class="nazwa">
-                    Wilgotność gleby
-                </p>
-
-                <span class="teraz" id="terazSoil">
-                    brak odczytu
-                </span>
-
+                <p class="nazwa">Wilgotność gleby</p>
+                <span class="teraz" id="terazSoil">brak odczytu</span>
             </div>
-
-
             <div class="skala">
-
                 <div class="strefa" id="strefaSoil"></div>
-
                 <div class="znacznik" id="znacznikSoil"></div>
-
             </div>
-
-
-            <div class="opis-skali">
-
-                <span>sucho 0 %</span>
-                <span>mokro 100 %</span>
-
-            </div>
-
-
+            <div class="opis-skali"><span>sucho 0 %</span><span>mokro 100 %</span></div>
             <div class="pola-warunku">
-
-                <label class="pole">
-
-                    <span>Minimum</span>
-
-                    <input
-                        type="number"
-                        id="soil_min"
-                        step="1"
-                        min="0"
-                        max="100"
-                        disabled>
-
-                </label>
-
-
-                <label class="pole">
-
-                    <span>Maksimum</span>
-
-                    <input
-                        type="number"
-                        id="soil_max"
-                        step="1"
-                        min="0"
-                        max="100"
-                        disabled>
-
-                </label>
-
+                <label class="pole"><span>Minimum</span>
+                    <input type="number" id="soil_min" step="1" min="0" max="100" disabled></label>
+                <label class="pole"><span>Maksimum</span>
+                    <input type="number" id="soil_max" step="1" min="0" max="100" disabled></label>
             </div>
-
-
             <p class="uwaga-warunku">
-
                 Poniżej minimum włącza się podlewanie,
                 powyżej maksimum pompka nie dolewa wody.
-
             </p>
-
         </div>
 
     </div>
 
-
     <div class="stopka-warunkow">
+        <button type="button" class="przycisk" id="przyciskZapisz" disabled>Zapisz warunki</button>
+        <button type="button" class="przycisk drugi" id="przyciskPrzywroc" disabled>Wczytaj ze sterownika</button>
+        <span class="komunikat" id="komunikatWarunkow">Czekam na połączenie ze sterownikiem</span>
+    </div>
 
-        <button
-            type="button"
-            class="przycisk"
-            id="przyciskZapisz"
-            disabled>
-            Zapisz warunki
-        </button>
+</div>
 
 
-        <button
-            type="button"
-            class="przycisk drugi"
-            id="przyciskPrzywroc"
-            disabled>
-            Wczytaj ze sterownika
-        </button>
+<!-- ========================================================= -->
+<!-- KALIBRACJA CZUJNIKA GLEBY -->
+<!-- ========================================================= -->
 
+<div class="sekcja">
 
-        <span
-            class="komunikat"
-            id="komunikatWarunkow">
-            Czekam na połączenie ze sterownikiem
-        </span>
+    <h2>Kalibracja czujnika gleby</h2>
+
+    <p class="podpis">
+        Czujnik zwraca surową wartość ADC, którą sterownik przelicza na procenty.
+        Żeby procenty były dokładne, pokaż mu, co to jest „sucho” i „mokro”:
+        włącz podgląd na żywo, trzymaj czujnik w powietrzu (albo w suchej ziemi), poczekaj aż odczyt się ustabilizuje
+        i kliknij „To jest SUCHO”. Potem zanurz czujnik w wodzie (tylko do kreski na płytce, nie elektronikę)
+        albo włóż do w pełni nawodnionej ziemi i kliknij „To jest MOKRO”.
+    </p>
+
+    <div class="st-karta">
+
+        <div class="st-kal-odczyt">
+            <div><span class="st-mala">Odczyt ADC teraz</span><strong id="calRaw">--</strong></div>
+            <div><span class="st-mala">Punkt SUCHO (0 %)</span><strong id="calDry">--</strong></div>
+            <div><span class="st-mala">Punkt MOKRO (100 %)</span><strong id="calWet">--</strong></div>
+            <div><span class="st-mala">Wilgotność gleby</span><strong id="calProc">--</strong></div>
+        </div>
+
+        <div class="st-pasek-kal"><div class="st-znacznik-kal" id="calZnacznik"></div></div>
+        <div class="st-pasek-opis"><span>sucho</span><span>mokro</span></div>
+
+        <div class="st-rzad">
+            <button type="button" class="st-btn st-drugi st-ster" id="calLive" disabled>Podgląd na żywo</button>
+            <button type="button" class="st-btn st-ster" id="calDryBtn" disabled>To jest SUCHO</button>
+            <button type="button" class="st-btn st-ster" id="calWetBtn" disabled>To jest MOKRO</button>
+            <button type="button" class="st-btn st-drugi st-uwaga-btn st-ster" id="calResetBtn" disabled>Przywróć fabryczne</button>
+        </div>
+
+        <p class="st-uwaga">
+            Na czas kalibracji (podgląd + 5 minut po ostatnim zapisie punktu) automatyczne podlewanie jest wstrzymane,
+            żeby pompka nie ruszyła, gdy czujnik leży w powietrzu.
+            Podgląd na żywo wyłącza się sam po 2 minutach.
+        </p>
+
+        <span class="komunikat" id="komunikatKal">Czekam na połączenie ze sterownikiem</span>
 
     </div>
 
@@ -578,42 +381,27 @@
 
 
 <!-- ========================================================= -->
-<!-- WYKRES + LED -->
+<!-- WYKRES -->
 <!-- ========================================================= -->
 
 <div class="sekcja">
 
     <div class="rzad-gorny">
 
-
         <div class="wykres ramka">
 
-            <h2>
-                Historia pomiarów
-            </h2>
+            <h2>Historia pomiarów</h2>
 
-
-            <div
-                class="wybor-wykresu"
-                id="wyborWykresu">
-            </div>
-
+            <div class="wybor-wykresu" id="wyborWykresu"></div>
 
             <div class="kontener-wykresu">
 
-                <div
-                    class="zastepnik"
-                    id="zastepnikWykresu">
-
-                    Miejsce na wykres z Google Sheets.<br>
-
-                    W arkuszu:
-                    Plik &rarr; Udostępnij &rarr;
-                    Opublikuj w internecie &rarr;
-                    wybierz wykres &rarr; Osadź.
-
+                <div class="zastepnik" id="zastepnikWykresu">
+                    Brak wykresu dla szklarni <b id="idDlaWykresu">-</b>.<br>
+                    Dodaj ją w skrypcie, w obiekcie WYKRESY_SZKLARNI,
+                    podając adresy wykresów z Google Sheets:<br>
+                    Plik &rarr; Udostępnij &rarr; Opublikuj w internecie &rarr; wybierz wykres &rarr; Osadź.
                 </div>
-
 
                 <iframe
                     class="ramkawykresu"
@@ -627,53 +415,104 @@
 
         </div>
 
+    </div>
 
-        <!-- LED -->
-
-        <div
-            class="panel-led ramka"
-            id="panelLed">
-
-            <p class="nazwa-urzadzenia">
-                Diody LED
-            </p>
+</div>
 
 
-            <div class="paleta-led">
+<!-- ========================================================= -->
+<!-- STUDIO LED -->
+<!-- ========================================================= -->
 
-                <div
-                    class="siatka-palety"
-                    id="siatkaPalety">
-                </div>
+<div class="sekcja">
 
+    <h2>Studio LED</h2>
 
-                <div class="wybor-wlasny">
+    <p class="podpis">
+        Ustaw wygląd diod: kolory, animacje, jasność, a nawet godziny, w których mają świecić inaczej
+        (np. na noc wygaszone). Podgląd poniżej pokazuje, jak świecą diody w szklarni.
+    </p>
 
-                    <input
-                        type="color"
-                        id="kolorWlasny"
-                        value="#0f9d6a"
-                        disabled>
+    <!-- podgląd + tryb -->
+    <div class="st-karta">
 
-                    <span class="etykieta-wlasny">
-                        Własny kolor
-                    </span>
+        <div class="st-podglad" id="podgladLed"></div>
 
-                </div>
+        <div class="st-seg" id="trybLed">
+            <button type="button" class="st-ster" data-tryb="auto" disabled>Auto (kolory stanu szklarni)</button>
+            <button type="button" class="st-ster" data-tryb="manual" disabled>Własny wygląd</button>
+        </div>
 
-            </div>
+        <p class="st-stan" id="stanLed">Czekam na połączenie ze sterownikiem</p>
 
+    </div>
 
-            <button
-                type="button"
-                class="przycisk-auto-led"
-                id="przyciskAutoLed"
-                disabled>
+    <!-- własny wygląd -->
+    <div class="st-karta">
+        <h3>Własny wygląd</h3>
+        <p class="st-uwaga">Zmiany działają od razu na żywo i włączają tryb „Własny wygląd”.</p>
+        <div id="edytorWlasny"></div>
+    </div>
 
-                Auto
+    <!-- tryb auto -->
+    <div class="st-karta">
 
-            </button>
+        <h3>Tryb Auto: kolory stanu szklarni</h3>
+        <p class="st-uwaga">Gdy wszystko jest w normie, diody świecą na kolor „W normie”. Przy problemach zmieniają kolor.</p>
 
+        <div class="st-siatka-auto">
+            <label class="st-kolor"><span>W normie</span><input type="color" class="st-ster" id="auOk" disabled></label>
+            <label class="st-kolor"><span>Gleba za sucha</span><input type="color" class="st-ster" id="auSoilLow" disabled></label>
+            <label class="st-kolor"><span>Gleba za mokra</span><input type="color" class="st-ster" id="auSoilHigh" disabled></label>
+            <label class="st-kolor"><span>Temperatura poza zakresem</span><input type="color" class="st-ster" id="auTemp" disabled></label>
+            <label class="st-kolor"><span>Wilgotność powietrza poza zakresem</span><input type="color" class="st-ster" id="auHum" disabled></label>
+        </div>
+
+        <div class="st-suwaki">
+            <label>
+                <span>Jasność: <b id="auBriVal">80</b>%</span>
+                <input type="range" min="0" max="100" value="80" class="st-ster" id="auBri" disabled>
+            </label>
+        </div>
+
+        <div class="st-rzad">
+            <label class="st-przelacznik">
+                <input type="checkbox" class="st-ster" id="auPulse" disabled>
+                Pulsuj (oddychanie) przy suchej glebie lub złej temperaturze
+            </label>
+        </div>
+
+        <div class="st-rzad">
+            <button type="button" class="st-btn st-ster" id="auZapisz" disabled>Zapisz tryb Auto</button>
+            <button type="button" class="st-btn st-drugi st-ster" id="auWczytaj" disabled>Wczytaj ze sterownika</button>
+            <span class="komunikat" id="komunikatAuto"></span>
+        </div>
+
+    </div>
+
+    <!-- harmonogram -->
+    <div class="st-karta">
+
+        <h3>Harmonogram: kiedy jaki wygląd</h3>
+        <p class="st-uwaga">
+            W wybranych godzinach diody świecą według slotu, niezależnie od trybu powyżej
+            (np. slot „22:00 do 06:00, wyłączone”). Jeśli sloty nachodzą na siebie, wygrywa ten o niższym numerze.
+            Godziny liczone są wg czasu z internetu (Polska), sterownik musi mieć dostęp do sieci.
+        </p>
+
+        <div class="st-rzad">
+            <label class="st-przelacznik">
+                <input type="checkbox" class="st-ster" id="harmWlacz" disabled>
+                Harmonogram włączony
+            </label>
+        </div>
+
+        <div id="listaSlotow"></div>
+
+        <div class="st-rzad">
+            <button type="button" class="st-btn st-ster" id="harmZapisz" disabled>Zapisz harmonogram</button>
+            <button type="button" class="st-btn st-drugi st-ster" id="harmWczytaj" disabled>Wczytaj ze sterownika</button>
+            <span class="komunikat" id="komunikatHarm"></span>
         </div>
 
     </div>
@@ -687,157 +526,53 @@
 
 <div class="sekcja">
 
-    <h2>
-        Sterowanie ręczne
-    </h2>
-
+    <h2>Sterowanie ręczne</h2>
 
     <p class="podpis">
-
         Przełącz urządzenie w tryb ręczny,
         żeby włączyć je niezależnie od zadanych warunków.
         Tryb automatyczny oddaje sterowanie sterownikowi.
-
     </p>
-
 
     <div class="karty-manualne">
 
-
         <!-- POMPKA -->
-
-        <div
-            class="karta-urzadzenia ramka"
-            id="kartaPompka">
+        <div class="karta-urzadzenia ramka" id="kartaPompka">
 
             <div class="glowka-urzadzenia">
-
-                <p class="nazwa-urzadzenia">
-                    Pompka
-                </p>
-
-
-                <div
-                    class="tryb-urzadzenia"
-                    data-urzadzenie="pump">
-
-                    <button
-                        type="button"
-                        data-tryb="auto"
-                        disabled>
-                        Auto
-                    </button>
-
-                    <button
-                        type="button"
-                        data-tryb="manual"
-                        disabled>
-                        Ręcznie
-                    </button>
-
+                <p class="nazwa-urzadzenia">Pompka</p>
+                <div class="tryb-urzadzenia" data-urzadzenie="pump">
+                    <button type="button" data-tryb="auto" disabled>Auto</button>
+                    <button type="button" data-tryb="manual" disabled>Ręcznie</button>
                 </div>
-
             </div>
-
 
             <div class="przelacznik-onoff">
-
-                <button
-                    type="button"
-                    data-urzadzenie="pump"
-                    data-cmd="pompka_on"
-                    disabled>
-                    Włącz
-                </button>
-
-                <button
-                    type="button"
-                    data-urzadzenie="pump"
-                    data-cmd="pompka_off"
-                    disabled>
-                    Wyłącz
-                </button>
-
+                <button type="button" data-urzadzenie="pump" data-cmd="pompka_on" disabled>Włącz</button>
+                <button type="button" data-urzadzenie="pump" data-cmd="pompka_off" disabled>Wyłącz</button>
             </div>
 
-
-            <p class="stan-urzadzenia">
-
-                Stan:
-                <span id="stanPompki">
-                    --
-                </span>
-
-            </p>
+            <p class="stan-urzadzenia">Stan: <span id="stanPompki">--</span></p>
 
         </div>
 
-
         <!-- WIATRAK -->
-
-        <div
-            class="karta-urzadzenia ramka"
-            id="kartaWiatrak">
+        <div class="karta-urzadzenia ramka" id="kartaWiatrak">
 
             <div class="glowka-urzadzenia">
-
-                <p class="nazwa-urzadzenia">
-                    Wiatrak
-                </p>
-
-
-                <div
-                    class="tryb-urzadzenia"
-                    data-urzadzenie="fan">
-
-                    <button
-                        type="button"
-                        data-tryb="auto"
-                        disabled>
-                        Auto
-                    </button>
-
-                    <button
-                        type="button"
-                        data-tryb="manual"
-                        disabled>
-                        Ręcznie
-                    </button>
-
+                <p class="nazwa-urzadzenia">Wiatrak</p>
+                <div class="tryb-urzadzenia" data-urzadzenie="fan">
+                    <button type="button" data-tryb="auto" disabled>Auto</button>
+                    <button type="button" data-tryb="manual" disabled>Ręcznie</button>
                 </div>
-
             </div>
-
 
             <div class="przelacznik-onoff">
-
-                <button
-                    type="button"
-                    data-urzadzenie="fan"
-                    data-cmd="wiatrak_on"
-                    disabled>
-                    Włącz
-                </button>
-
-                <button
-                    type="button"
-                    data-urzadzenie="fan"
-                    data-cmd="wiatrak_off"
-                    disabled>
-                    Wyłącz
-                </button>
-
+                <button type="button" data-urzadzenie="fan" data-cmd="wiatrak_on" disabled>Włącz</button>
+                <button type="button" data-urzadzenie="fan" data-cmd="wiatrak_off" disabled>Wyłącz</button>
             </div>
 
-
-            <p class="stan-urzadzenia">
-
-                Stan:
-                <span id="stanWiatraka">
-                    --
-                </span>
-
-            </p>
+            <p class="stan-urzadzenia">Stan: <span id="stanWiatraka">--</span></p>
 
         </div>
 
@@ -850,7 +585,7 @@
 
 
 <!-- ========================================================= -->
-<!-- MQTT -->
+<!-- MQTT + LOGIKA STRONY -->
 <!-- ========================================================= -->
 
 <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
@@ -862,219 +597,202 @@
    ================================================== */
 
 /*
-   UWAGA:
-
-   Nie publikuj prawdziwego hasła MQTT w publicznym repozytorium.
-
-   Jeżeli strona ma być publiczna, samo ukrycie hasła w tym pliku
-   nie zabezpiecza go, ponieważ JavaScript działa u użytkownika.
-
-   Ustaw tutaj swoje dane tylko w wersji lokalnej.
+   UWAGA: nie publikuj prawdziwego hasła MQTT w publicznym repozytorium.
+   Skoro JavaScript działa u użytkownika, każdy odwiedzający stronę
+   może odczytać te dane i sterować WSZYSTKIMI szklarniami na tym brokerze.
 */
 
 const BROKER = "wss://548b79c9bba044dc8eb4cd3fc0d2767c.s1.eu.hivemq.cloud:8884/mqtt";
 const MQTT_USER = "Stronainternetowa";
 const MQTT_PASS = "Morfeusz";
 
+const POPRAWNE_ID = /^[A-Za-z0-9_-]{1,32}$/;
+const LIMIT_CISZY = 15;
+const KLUCZ_PAMIECI = "szklarnia_wybrana";
+
+const $ = id => document.getElementById(id);
+
 
 /* ==================================================
-   TEMATY MQTT
+   WYKRESY (osobne dla każdej szklarni)
    ================================================== */
 
-const TEMATY = {
+/*
+   Klucz = identyfikator szklarni (widać go obok listy wyboru, np. "gh-A1B2C3").
+   Wartość = lista wykresów z Google Sheets (Opublikuj w internecie -> Osadź).
+*/
+const WYKRESY_SZKLARNI = {
 
-    temperatura:
-        "greenhouse/sensors/temperature",
+    "gh-XXXXXX": [   // <-- wpisz tu ID swojej pierwszej szklarni
 
-    wilgotnosc:
-        "greenhouse/sensors/humidity",
+        {
+            nazwa: "Temperatura",
+            adres: "https://docs.google.com/spreadsheets/d/e/2PACX-1vS9blKESl7lEPiR7QkISZV4VTM0u_4Tzw1vbeWOK-lWjE6OOnfKrltxTJKmchFOjk0VGuBTLzdJn4A8/pubchart?oid=2110625866&format=interactive"
+        },
 
-    gleba:
-        "greenhouse/sensors/moisture_percent",
+        {
+            nazwa: "Wilgotność powietrza",
+            adres: "https://docs.google.com/spreadsheets/d/e/2PACX-1vS9blKESl7lEPiR7QkISZV4VTM0u_4Tzw1vbeWOK-lWjE6OOnfKrltxTJKmchFOjk0VGuBTLzdJn4A8/pubchart?oid=519169856&format=interactive"
+        },
 
-    stanPelny:
-        "greenhouse/state/full",
+        {
+            nazwa: "Wilgotność gleby",
+            adres: "https://docs.google.com/spreadsheets/d/e/2PACX-1vS9blKESl7lEPiR7QkISZV4VTM0u_4Tzw1vbeWOK-lWjE6OOnfKrltxTJKmchFOjk0VGuBTLzdJn4A8/pubchart?oid=518040917&format=interactive"
+        }
 
-    ustawienia:
-        "greenhouse/state/settings",
+    ]
 
-    online:
-        "if_is_working/good",
-
-    sterPompka:
-        "greenhouse/control/pump",
-
-    sterWiatrak:
-        "greenhouse/control/fan",
-
-    sterLed:
-        "greenhouse/control/led",
-
-    sterWarunki:
-        "greenhouse/control/settings"
 };
 
-
-/* ==================================================
-   WYKRESY
-   ================================================== */
-
-const WYKRESY = [
-
-    {
-        nazwa: "Temperatura",
-
-        adres:
-            "https://docs.google.com/spreadsheets/d/e/2PACX-1vS9blKESl7lEPiR7QkISZV4VTM0u_4Tzw1vbeWOK-lWjE6OOnfKrltxTJKmchFOjk0VGuBTLzdJn4A8/pubchart?oid=2110625866&format=interactive"
-    },
-
-    {
-        nazwa: "Wilgotność powietrza",
-
-        adres:
-            "https://docs.google.com/spreadsheets/d/e/2PACX-1vS9blKESl7lEPiR7QkISZV4VTM0u_4Tzw1vbeWOK-lWjE6OOnfKrltxTJKmchFOjk0VGuBTLzdJn4A8/pubchart?oid=519169856&format=interactive"
-    },
-
-    {
-        nazwa: "Wilgotność gleby",
-
-        adres:
-            "https://docs.google.com/spreadsheets/d/e/2PACX-1vS9blKESl7lEPiR7QkISZV4VTM0u_4Tzw1vbeWOK-lWjE6OOnfKrltxTJKmchFOjk0VGuBTLzdJn4A8/pubchart?oid=518040917&format=interactive"
-    }
-
-];
-
-
-const LIMIT_CISZY = 15;
-
-
-/* ==================================================
-   WYKRES
-   ================================================== */
-
-const ramkaWykresu =
-    document.getElementById("ramkaWykresu");
-
-const zastepnikWykresu =
-    document.getElementById("zastepnikWykresu");
-
-const wyborWykresu =
-    document.getElementById("wyborWykresu");
-
-const kontenerWykresu =
-    document.querySelector(".kontener-wykresu");
-
-
+const ramkaWykresu = $("ramkaWykresu");
+const zastepnikWykresu = $("zastepnikWykresu");
+const wyborWykresu = $("wyborWykresu");
+const kontenerWykresu = document.querySelector(".kontener-wykresu");
 const NATYWNA_SZEROKOSC_WYKRESU = 620;
 
+let wykresy = [];
 
 function pokazWykres(indeks) {
 
-    const wykres = WYKRESY[indeks];
+    const wykres = wykresy[indeks];
 
     if (!wykres || !wykres.adres)
         return;
 
     ramkaWykresu.src = wykres.adres;
-
     ramkaWykresu.style.display = "block";
-
     zastepnikWykresu.style.display = "none";
 
-
-    wyborWykresu
-        .querySelectorAll("button")
-        .forEach((b, i) => {
-
-            b.classList.toggle(
-                "wybrany",
-                i === indeks
-            );
-
-        });
-}
-
-
-function zbudujWyborWykresu() {
-
-    WYKRESY.forEach((wykres, indeks) => {
-
-        const przycisk =
-            document.createElement("button");
-
-        przycisk.type = "button";
-
-        przycisk.textContent =
-            wykres.nazwa;
-
-        przycisk.addEventListener(
-            "click",
-            () => pokazWykres(indeks)
-        );
-
-        wyborWykresu.appendChild(przycisk);
-
+    wyborWykresu.querySelectorAll("button").forEach((b, i) => {
+        b.classList.toggle("wybrany", i === indeks);
     });
 }
 
+function ustawWykresy(id) {
 
-if (WYKRESY.length > 0) {
+    wykresy = (id && WYKRESY_SZKLARNI[id]) || [];
 
-    zbudujWyborWykresu();
+    wyborWykresu.innerHTML = "";
 
-    pokazWykres(0);
+    wykresy.forEach((wykres, indeks) => {
 
+        const przycisk = document.createElement("button");
+        przycisk.type = "button";
+        przycisk.textContent = wykres.nazwa;
+        przycisk.addEventListener("click", () => pokazWykres(indeks));
+        wyborWykresu.appendChild(przycisk);
+
+    });
+
+    $("idDlaWykresu").textContent = id || "-";
+
+    if (wykresy.length > 0) {
+
+        pokazWykres(0);
+
+    } else {
+
+        ramkaWykresu.removeAttribute("src");
+        ramkaWykresu.style.display = "none";
+        zastepnikWykresu.style.display = "block";
+
+    }
 }
-
 
 function przeskalujWykres() {
 
-    const dostepnaSzerokosc =
-        kontenerWykresu.clientWidth;
+    const skala = Math.min(1, kontenerWykresu.clientWidth / NATYWNA_SZEROKOSC_WYKRESU);
+    ramkaWykresu.style.transform = `scale(${skala})`;
 
-    const skala =
-        Math.min(
-            1,
-            dostepnaSzerokosc /
-            NATYWNA_SZEROKOSC_WYKRESU
-        );
-
-    ramkaWykresu.style.transform =
-        `scale(${skala})`;
 }
-
 
 przeskalujWykres();
 
-
 let licznikSkalowania = null;
-
 
 function zaplanujPrzeskalowanie() {
 
     clearTimeout(licznikSkalowania);
+    licznikSkalowania = setTimeout(przeskalujWykres, 100);
 
-    licznikSkalowania =
-        setTimeout(
-            przeskalujWykres,
-            100
-        );
+}
+
+if (window.ResizeObserver)
+    new ResizeObserver(zaplanujPrzeskalowanie).observe(kontenerWykresu);
+else
+    window.addEventListener("resize", zaplanujPrzeskalowanie);
+
+
+/* ==================================================
+   POŁĄCZENIE Z BROKEREM
+   ================================================== */
+
+const klient = mqtt.connect(BROKER, {
+
+    username: MQTT_USER,
+    password: MQTT_PASS,
+    clientId: "strona-szklarnia-" + Math.random().toString(16).slice(2, 10),
+    reconnectPeriod: 4000,
+    connectTimeout: 8000
+
+});
+
+/* wszystkie szklarnie znalezione na brokerze: id -> { nazwa, online } */
+const szklarnie = {};
+
+let aktualna = null;            /* id wybranej szklarni */
+let preferowana = null;         /* id zapamiętane z poprzedniej wizyty lub z adresu ?s=... */
+
+const wyborSzklarni = $("wyborSzklarni");
+const idSzklarni = $("idSzklarni");
+const przyciskNazwa = $("przyciskNazwa");
+
+
+/* wysyła polecenie do WYBRANEJ szklarni: pod = pump | fan | led | settings | calib | system */
+function wyslij(pod, tresc) {
+
+    if (!aktualna || !klient.connected)
+        return false;
+
+    klient.publish("greenhouse/" + aktualna + "/control/" + pod, tresc);
+    return true;
 
 }
 
 
-if (window.ResizeObserver) {
+/* ==================================================
+   POMOCNICZE UI
+   ================================================== */
 
-    new ResizeObserver(
-        zaplanujPrzeskalowanie
-    ).observe(kontenerWykresu);
+function pokazKom(el, tekst, rodzaj) {
 
-} else {
+    el.textContent = tekst;
+    el.className = "komunikat" + (rodzaj ? " " + rodzaj : "");
 
-    window.addEventListener(
-        "resize",
-        zaplanujPrzeskalowanie
-    );
+}
+
+function opoznij(fn, ms) {
+
+    let t = null;
+
+    return (...a) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn(...a), ms);
+    };
+
+}
+
+function nHex(s) {
+
+    s = String(s || "000000").replace("#", "").toLowerCase();
+    return "#" + s.padStart(6, "0").slice(0, 6);
+
+}
+
+function hex2rgb(h) {
+
+    h = h.replace("#", "");
+    return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
 
 }
 
@@ -1086,1617 +804,1566 @@ if (window.ResizeObserver) {
 const ZAKRESY = {
 
     temp: {
-
-        osMin: 0,
-        osMax: 50,
-        jednostka: "\u00B0C",
-        miejsca: 1,
-
-        poleMin: "temp_min",
-        poleMax: "temp_max",
-
-        strefa: "strefaTemp",
-        znacznik: "znacznikTemp",
-        teraz: "terazTemp",
-
-        kafelek: "kafelekTemp"
+        osMin: 0, osMax: 50, jednostka: "\u00B0C", miejsca: 1,
+        poleMin: "temp_min", poleMax: "temp_max",
+        strefa: "strefaTemp", znacznik: "znacznikTemp", teraz: "terazTemp", kafelek: "kafelekTemp"
     },
-
 
     hum: {
-
-        osMin: 0,
-        osMax: 100,
-        jednostka: "%",
-        miejsca: 0,
-
-        poleMin: "hum_min",
-        poleMax: "hum_max",
-
-        strefa: "strefaHum",
-        znacznik: "znacznikHum",
-        teraz: "terazHum",
-
-        kafelek: "kafelekWilg"
+        osMin: 0, osMax: 100, jednostka: "%", miejsca: 0,
+        poleMin: "hum_min", poleMax: "hum_max",
+        strefa: "strefaHum", znacznik: "znacznikHum", teraz: "terazHum", kafelek: "kafelekWilg"
     },
 
-
     soil: {
-
-        osMin: 0,
-        osMax: 100,
-        jednostka: "%",
-        miejsca: 0,
-
-        poleMin: "soil_min",
-        poleMax: "soil_max",
-
-        strefa: "strefaSoil",
-        znacznik: "znacznikSoil",
-        teraz: "terazSoil",
-
-        kafelek: "kafelekGleba"
+        osMin: 0, osMax: 100, jednostka: "%", miejsca: 0,
+        poleMin: "soil_min", poleMax: "soil_max",
+        strefa: "strefaSoil", znacznik: "znacznikSoil", teraz: "terazSoil", kafelek: "kafelekGleba"
     }
 
 };
-
 
 /* Limity narzucane przez sterownik */
-
 const LIMITY_ESP = {
 
-    temp: {
-        maxMin: 45,
-        odstep: 1
-    },
-
-    hum: {
-        maxMin: 95,
-        odstep: 5
-    },
-
-    soil: {
-        maxMin: 90,
-        odstep: 5
-    }
+    temp: { maxMin: 45, odstep: 1 },
+    hum:  { maxMin: 95, odstep: 5 },
+    soil: { maxMin: 90, odstep: 5 }
 
 };
 
-
-/* Bieżące odczyty */
-
-const odczyty = {
-
-    temp: null,
-    hum: null,
-    soil: null
-
-};
-
-
-/* Ostatnie warunki */
+const odczyty = { temp: null, hum: null, soil: null };
 
 let warunkiZUrzadzenia = null;
-
-
-/* Edycja */
-
 let trwaEdycja = false;
 
-
-const przyciskZapisz =
-    document.getElementById(
-        "przyciskZapisz"
-    );
-
-const przyciskPrzywroc =
-    document.getElementById(
-        "przyciskPrzywroc"
-    );
-
-const komunikatWarunkow =
-    document.getElementById(
-        "komunikatWarunkow"
-    );
-
+const przyciskZapisz = $("przyciskZapisz");
+const przyciskPrzywroc = $("przyciskPrzywroc");
+const komunikatWarunkow = $("komunikatWarunkow");
 
 function pokazKomunikat(tekst, rodzaj) {
-
-    komunikatWarunkow.textContent =
-        tekst;
-
-    komunikatWarunkow.className =
-        "komunikat" +
-        (rodzaj ? " " + rodzaj : "");
-
+    pokazKom(komunikatWarunkow, tekst, rodzaj);
 }
-
 
 function procentNaOsi(zakres, wartosc) {
 
-    const p =
-        (wartosc - zakres.osMin) /
-        (zakres.osMax - zakres.osMin) *
-        100;
-
-    return Math.max(
-        0,
-        Math.min(100, p)
-    );
+    const p = (wartosc - zakres.osMin) / (zakres.osMax - zakres.osMin) * 100;
+    return Math.max(0, Math.min(100, p));
 
 }
 
-
 function odswiezSkale(klucz) {
 
-    const zakres =
-        ZAKRESY[klucz];
+    const zakres = ZAKRESY[klucz];
+    const min = parseFloat($(zakres.poleMin).value);
+    const max = parseFloat($(zakres.poleMax).value);
+    const strefa = $(zakres.strefa);
 
-    const min =
-        parseFloat(
-            document.getElementById(
-                zakres.poleMin
-            ).value
-        );
+    if (!isNaN(min) && !isNaN(max) && max > min) {
 
-    const max =
-        parseFloat(
-            document.getElementById(
-                zakres.poleMax
-            ).value
-        );
+        const lewo = procentNaOsi(zakres, min);
+        const prawo = procentNaOsi(zakres, max);
 
-
-    const strefa =
-        document.getElementById(
-            zakres.strefa
-        );
-
-
-    if (!isNaN(min) &&
-        !isNaN(max) &&
-        max > min) {
-
-        const lewo =
-            procentNaOsi(
-                zakres,
-                min
-            );
-
-        const prawo =
-            procentNaOsi(
-                zakres,
-                max
-            );
-
-        strefa.style.left =
-            lewo + "%";
-
-        strefa.style.width =
-            (prawo - lewo) + "%";
-
-        strefa.style.display =
-            "block";
+        strefa.style.left = lewo + "%";
+        strefa.style.width = (prawo - lewo) + "%";
+        strefa.style.display = "block";
 
     } else {
 
-        strefa.style.display =
-            "none";
+        strefa.style.display = "none";
 
     }
 
+    const znacznik = $(zakres.znacznik);
+    const teraz = $(zakres.teraz);
+    const wartosc = odczyty[klucz];
+    const kafelek = $(zakres.kafelek);
 
-    const znacznik =
-        document.getElementById(
-            zakres.znacznik
-        );
+    if (wartosc === null || isNaN(wartosc)) {
 
-    const teraz =
-        document.getElementById(
-            zakres.teraz
-        );
-
-    const wartosc =
-        odczyty[klucz];
-
-    const kafelek =
-        document.getElementById(
-            zakres.kafelek
-        );
-
-
-    if (
-        wartosc === null ||
-        isNaN(wartosc)
-    ) {
-
-        znacznik.classList.remove(
-            "widoczny"
-        );
-
-        teraz.textContent =
-            "brak odczytu";
-
-        kafelek.classList.remove(
-            "w-zakresie",
-            "poza-zakresem"
-        );
-
+        znacznik.classList.remove("widoczny");
+        teraz.textContent = "brak odczytu";
+        kafelek.classList.remove("w-zakresie", "poza-zakresem");
         return;
 
     }
 
+    znacznik.classList.add("widoczny");
+    znacznik.style.left = procentNaOsi(zakres, wartosc) + "%";
 
-    znacznik.classList.add(
-        "widoczny"
-    );
+    teraz.textContent = wartosc.toFixed(zakres.miejsca) + " " + zakres.jednostka;
 
-    znacznik.style.left =
-        procentNaOsi(
-            zakres,
-            wartosc
-        ) + "%";
+    const poza = !isNaN(min) && !isNaN(max) && (wartosc < min || wartosc > max);
 
-
-    teraz.textContent =
-        wartosc.toFixed(
-            zakres.miejsca
-        ) +
-        " " +
-        zakres.jednostka;
-
-
-    const poza =
-        !isNaN(min) &&
-        !isNaN(max) &&
-        (
-            wartosc < min ||
-            wartosc > max
-        );
-
-
-    znacznik.classList.toggle(
-        "poza",
-        poza
-    );
-
-    kafelek.classList.toggle(
-        "poza-zakresem",
-        poza
-    );
-
-    kafelek.classList.toggle(
-        "w-zakresie",
-        !poza
-    );
+    znacznik.classList.toggle("poza", poza);
+    kafelek.classList.toggle("poza-zakresem", poza);
+    kafelek.classList.toggle("w-zakresie", !poza);
 
 }
-
 
 function odswiezWszystkieSkale() {
-
-    Object.keys(ZAKRESY)
-        .forEach(odswiezSkale);
-
+    Object.keys(ZAKRESY).forEach(odswiezSkale);
 }
-
 
 function wpiszWarunki(dane) {
 
     const pary = [
-
-        ["temp_min", dane.temp_min],
-        ["temp_max", dane.temp_max],
-
-        ["hum_min", dane.hum_min],
-        ["hum_max", dane.hum_max],
-
-        ["soil_min", dane.soil_min],
-        ["soil_max", dane.soil_max]
-
+        ["temp_min", dane.temp_min], ["temp_max", dane.temp_max],
+        ["hum_min", dane.hum_min],   ["hum_max", dane.hum_max],
+        ["soil_min", dane.soil_min], ["soil_max", dane.soil_max]
     ];
 
+    pary.forEach(([id, wartosc]) => {
 
-    pary.forEach(
-        ([id, wartosc]) => {
+        if (wartosc === undefined || wartosc === null)
+            return;
 
-            if (
-                wartosc === undefined ||
-                wartosc === null
-            )
-                return;
+        $(id).value = wartosc;
 
-            document.getElementById(id).value =
-                wartosc;
-
-        }
-    );
-
+    });
 
     odswiezWszystkieSkale();
 
 }
 
-
 function obsluzUstawienia(tresc) {
 
     let dane;
 
-    try {
+    try { dane = JSON.parse(tresc); } catch (e) { return; }
 
-        dane =
-            JSON.parse(tresc);
-
-    } catch (e) {
-
-        return;
-
-    }
-
-
-    warunkiZUrzadzenia =
-        dane;
-
+    warunkiZUrzadzenia = dane;
 
     if (trwaEdycja) {
 
-        pokazKomunikat(
-            "Sterownik przysłał inne warunki - zapisz albo wczytaj je ponownie",
-            "blad"
-        );
-
+        pokazKomunikat("Sterownik przysłał inne warunki - zapisz albo wczytaj je ponownie", "blad");
         return;
 
     }
 
-
     wpiszWarunki(dane);
-
-
-    pokazKomunikat(
-        "Warunki zgodne ze sterownikiem",
-        "ok"
-    );
+    pokazKomunikat("Warunki zgodne ze sterownikiem", "ok");
 
 }
-
-
-/* ==================================================
-   WALIDACJA
-   ================================================== */
 
 function sprawdzFormularz() {
 
     const wartosci = {};
 
-
     for (const klucz in ZAKRESY) {
 
-        const zakres =
-            ZAKRESY[klucz];
+        const zakres = ZAKRESY[klucz];
+        const min = parseFloat($(zakres.poleMin).value);
+        const max = parseFloat($(zakres.poleMax).value);
 
+        if (isNaN(min) || isNaN(max))
+            return { blad: "Uzupełnij wszystkie pola" };
 
-        const min =
-            parseFloat(
-                document.getElementById(
-                    zakres.poleMin
-                ).value
-            );
+        if (min < zakres.osMin || max > zakres.osMax)
+            return { blad: "Wartości muszą mieścić się w zakresie skali" };
 
+        const lim = LIMITY_ESP[klucz];
 
-        const max =
-            parseFloat(
-                document.getElementById(
-                    zakres.poleMax
-                ).value
-            );
+        if (min > lim.maxMin)
+            return { blad: "Minimum nie może być większe niż " + lim.maxMin };
 
+        if (max - min < lim.odstep)
+            return { blad: "Maksimum musi być większe od minimum o co najmniej " + lim.odstep };
 
-        if (
-            isNaN(min) ||
-            isNaN(max)
-        ) {
-
-            return {
-                blad:
-                    "Uzupełnij wszystkie pola"
-            };
-
-        }
-
-
-        if (
-            min < zakres.osMin ||
-            max > zakres.osMax
-        ) {
-
-            return {
-                blad:
-                    "Wartości muszą mieścić się w zakresie skali"
-            };
-
-        }
-
-
-        const lim =
-            LIMITY_ESP[klucz];
-
-
-        if (min > lim.maxMin) {
-
-            return {
-                blad:
-                    "Minimum nie może być większe niż " +
-                    lim.maxMin
-            };
-
-        }
-
-
-        if (
-            max - min <
-            lim.odstep
-        ) {
-
-            return {
-                blad:
-                    "Maksimum musi być większe od minimum o co najmniej " +
-                    lim.odstep
-            };
-
-        }
-
-
-        wartosci[
-            zakres.poleMin
-        ] = min;
-
-        wartosci[
-            zakres.poleMax
-        ] = max;
+        wartosci[zakres.poleMin] = min;
+        wartosci[zakres.poleMax] = max;
 
     }
 
-
-    return {
-        wartosci
-    };
+    return { wartosci };
 
 }
 
+document.querySelectorAll(".pola-warunku input").forEach(pole => {
 
-/* ==================================================
-   EDYCJA WARUNKÓW
-   ================================================== */
+    pole.addEventListener("input", () => {
 
-document
-    .querySelectorAll(
-        ".pola-warunku input"
-    )
-    .forEach(pole => {
-
-        pole.addEventListener(
-            "input",
-            () => {
-
-                trwaEdycja = true;
-
-                odswiezWszystkieSkale();
-
-                pokazKomunikat(
-                    "Zmiany nie zostały jeszcze wysłane do sterownika"
-                );
-
-            }
-        );
+        trwaEdycja = true;
+        odswiezWszystkieSkale();
+        pokazKomunikat("Zmiany nie zostały jeszcze wysłane do sterownika");
 
     });
 
+});
 
-przyciskZapisz.addEventListener(
-    "click",
-    () => {
+przyciskZapisz.addEventListener("click", () => {
 
-        const wynik =
-            sprawdzFormularz();
+    const wynik = sprawdzFormularz();
 
+    if (wynik.blad) {
+        pokazKomunikat(wynik.blad, "blad");
+        return;
+    }
 
-        if (wynik.blad) {
-
-            pokazKomunikat(
-                wynik.blad,
-                "blad"
-            );
-
-            return;
-
-        }
-
-
-        const komenda =
-            "set:" +
-            Object.entries(
-                wynik.wartosci
-            )
-            .map(
-                ([klucz, wartosc]) =>
-                    klucz + "=" + wartosc
-            )
+    const komenda = "set:" +
+        Object.entries(wynik.wartosci)
+            .map(([klucz, wartosc]) => klucz + "=" + wartosc)
             .join(";");
 
+    if (!wyslij("settings", komenda))
+        return;
 
-        klient.publish(
-            TEMATY.sterWarunki,
-            komenda
-        );
+    trwaEdycja = false;
+    pokazKomunikat("Wysłano do sterownika, czekam na potwierdzenie");
 
+});
+
+przyciskPrzywroc.addEventListener("click", () => {
+
+    if (warunkiZUrzadzenia) {
 
         trwaEdycja = false;
+        wpiszWarunki(warunkiZUrzadzenia);
+        pokazKomunikat("Wczytano warunki ze sterownika", "ok");
 
+    } else {
 
-        pokazKomunikat(
-            "Wysłano do sterownika, czekam na potwierdzenie"
-        );
-
-    }
-);
-
-
-przyciskPrzywroc.addEventListener(
-    "click",
-    () => {
-
-        if (warunkiZUrzadzenia) {
-
-            trwaEdycja = false;
-
-            wpiszWarunki(
-                warunkiZUrzadzenia
-            );
-
-            pokazKomunikat(
-                "Wczytano warunki ze sterownika",
-                "ok"
-            );
-
-        } else {
-
-            klient.publish(
-                TEMATY.sterWarunki,
-                "get_settings"
-            );
-
-            pokazKomunikat(
-                "Pytam sterownik o zapisane warunki"
-            );
-
-        }
+        wyslij("settings", "get_settings");
+        pokazKomunikat("Pytam sterownik o zapisane warunki");
 
     }
-);
+
+});
 
 
 /* ==================================================
    STAN POŁĄCZENIA
    ================================================== */
 
-const boxPolaczenia =
-    document.getElementById(
-        "polaczenie"
-    );
-
-const etykieta =
-    document.getElementById(
-        "etykietaPolaczenia"
-    );
-
+const boxPolaczenia = $("polaczenie");
+const etykieta = $("etykietaPolaczenia");
 
 let ostatniaWiadomosc = 0;
-
 let polaczonyZUrzadzeniem = false;
 
-
-const trybyUrzadzen = {
-
-    pump: "auto",
-    fan: "auto"
-
-};
-
+const trybyUrzadzen = { pump: "auto", fan: "auto" };
 
 function ustawStan(stan, tekst) {
 
-    boxPolaczenia.classList.remove(
-        "online",
-        "offline"
-    );
-
+    boxPolaczenia.classList.remove("online", "offline");
 
     if (stan)
-        boxPolaczenia.classList.add(
-            stan
-        );
+        boxPolaczenia.classList.add(stan);
 
+    etykieta.textContent = tekst;
+    polaczonyZUrzadzeniem = (stan === "online");
 
-    etykieta.textContent =
-        tekst;
+    document.querySelectorAll(".kafelek").forEach(k => {
+        k.classList.toggle("stare", !polaczonyZUrzadzeniem);
+    });
 
-
-    polaczonyZUrzadzeniem =
-        stan === "online";
-
-
-    document
-        .querySelectorAll(
-            ".kafelek"
-        )
-        .forEach(k => {
-
-            k.classList.toggle(
-                "stare",
-                !polaczonyZUrzadzeniem
-            );
-
-        });
-
-
-    document
-        .querySelectorAll(
-            ".tryb-urzadzenia button"
-        )
-        .forEach(b => {
-
-            b.disabled =
-                !polaczonyZUrzadzeniem;
-
-        });
-
+    document.querySelectorAll(".tryb-urzadzenia button").forEach(b => {
+        b.disabled = !polaczonyZUrzadzeniem;
+    });
 
     odswiezDostepnoscAkcji();
 
 }
 
-
 function odswiezDostepnoscAkcji() {
 
-    document
-        .querySelectorAll(
-            '.przelacznik-onoff button[data-urzadzenie]'
-        )
-        .forEach(b => {
+    const on = polaczonyZUrzadzeniem;
 
-            const urz =
-                b.dataset.urzadzenie;
+    document.querySelectorAll('.przelacznik-onoff button[data-urzadzenie]').forEach(b => {
+        b.disabled = !(on && trybyUrzadzen[b.dataset.urzadzenie] === "manual");
+    });
 
+    /* wszystko w studiu LED i kalibracji */
+    document.querySelectorAll(".st-ster").forEach(el => { el.disabled = !on; });
 
-            b.disabled =
-                !(
-                    polaczonyZUrzadzeniem &&
-                    trybyUrzadzen[urz] === "manual"
-                );
+    document.querySelectorAll(".pola-warunku input").forEach(p => { p.disabled = !on; });
 
-        });
+    przyciskZapisz.disabled = !on;
+    przyciskPrzywroc.disabled = !on;
 
+    przyciskNazwa.disabled = !(klient.connected && aktualna);
 
-    document
-        .querySelectorAll(
-            '.kolorek'
-        )
-        .forEach(b => {
+    if (!on && !trwaEdycja)
+        pokazKomunikat("Brak połączenia ze sterownikiem - zmiana warunków niedostępna");
 
-            b.disabled =
-                !polaczonyZUrzadzeniem;
+}
 
-        });
+/* Stan sterownika wybranej szklarni na podstawie brokera i informacji "online" */
+function odswiezStanSterownika() {
 
+    if (!klient.connected) {
+        ustawStan("offline", "Brak brokera");
+        return;
+    }
 
-    document.getElementById(
-        "kolorWlasny"
-    ).disabled =
-        !polaczonyZUrzadzeniem;
+    if (!aktualna) {
+        ustawStan("offline", "Wybierz szklarnię");
+        return;
+    }
 
+    const s = szklarnie[aktualna];
 
-    document.getElementById(
-        "przyciskAutoLed"
-    ).disabled =
-        !polaczonyZUrzadzeniem;
+    if (s && s.online) {
+        ostatniaWiadomosc = Date.now();
+        ustawStan("online", "Podłączony");
+    } else {
+        ostatniaWiadomosc = 0;
+        ustawStan("offline", "Sterownik offline");
+    }
 
+}
 
-    document
-        .querySelectorAll(
-            ".pola-warunku input"
-        )
-        .forEach(p => {
+setInterval(() => {
 
-            p.disabled =
-                !polaczonyZUrzadzeniem;
+    if (!ostatniaWiadomosc)
+        return;
 
-        });
+    if (Date.now() - ostatniaWiadomosc > LIMIT_CISZY * 1000)
+        ustawStan("offline", "Brak danych");
 
-
-    przyciskZapisz.disabled =
-        !polaczonyZUrzadzeniem;
+}, 5000);
 
 
-    przyciskPrzywroc.disabled =
-        !polaczonyZUrzadzeniem;
+/* ==================================================
+   LISTA SZKLAREŃ I WYBÓR
+   ================================================== */
 
+let podpisListy = "";
 
-    if (
-        !polaczonyZUrzadzeniem &&
-        !trwaEdycja
-    ) {
+function przebudujListe() {
 
-        pokazKomunikat(
-            "Brak połączenia ze sterownikiem - zmiana warunków niedostępna"
-        );
+    const ids = Object.keys(szklarnie).sort((a, b) =>
+        (szklarnie[a].nazwa || a).localeCompare(szklarnie[b].nazwa || b, "pl"));
+
+    const podpis = ids.map(id => id + "|" + szklarnie[id].nazwa + "|" + szklarnie[id].online).join(";") + "#" + aktualna;
+
+    if (podpis === podpisListy)
+        return;
+
+    podpisListy = podpis;
+
+    wyborSzklarni.innerHTML = "";
+
+    if (!ids.length) {
+
+        const o = document.createElement("option");
+        o.value = "";
+        o.textContent = "Szukam szklarni...";
+        wyborSzklarni.appendChild(o);
+        return;
+
+    }
+
+    ids.forEach(id => {
+
+        const o = document.createElement("option");
+        o.value = id;
+        o.textContent = (szklarnie[id].online ? "● " : "○ ") + (szklarnie[id].nazwa || id);
+        wyborSzklarni.appendChild(o);
+
+    });
+
+    if (aktualna)
+        wyborSzklarni.value = aktualna;
+
+}
+
+function pobierzSzklarnie(id) {
+
+    return szklarnie[id] || (szklarnie[id] = { nazwa: "", online: false });
+
+}
+
+function obsluzInfo(id, tresc) {
+
+    if (!POPRAWNE_ID.test(id))
+        return;
+
+    if (tresc === "") {          /* ktoś wyczyścił informację retained */
+        delete szklarnie[id];
+        przebudujListe();
+        return;
+    }
+
+    let dane;
+
+    try { dane = JSON.parse(tresc); } catch (e) { return; }
+
+    pobierzSzklarnie(id).nazwa = (typeof dane.name === "string") ? dane.name.slice(0, 40) : "";
+
+    przebudujListe();
+
+    if (!aktualna) {
+
+        if (preferowana && szklarnie[preferowana])
+            wybierz(preferowana);
+        else if (!preferowana)
+            wybierz(id);
 
     }
 
 }
 
+function obsluzOnline(id, tresc) {
 
-ustawStan(
-    null,
-    "Łączenie"
-);
+    if (!POPRAWNE_ID.test(id))
+        return;
 
+    pobierzSzklarnie(id).online = (tresc === "online");
 
-/* ==================================================
-   POŁĄCZENIE MQTT
-   ================================================== */
+    przebudujListe();
 
-const klient =
-    mqtt.connect(
-        BROKER,
-        {
+    if (id === aktualna)
+        odswiezStanSterownika();
 
-            username: MQTT_USER,
+}
 
-            password: MQTT_PASS,
+function zapamietajWybor(id) {
 
-            clientId:
-                "strona-szklarnia-" +
-                Math.random()
-                    .toString(16)
-                    .slice(2, 8),
+    try { localStorage.setItem(KLUCZ_PAMIECI, id); } catch (e) {}
 
-            reconnectPeriod: 4000,
+    try {
+        const u = new URL(location.href);
+        u.searchParams.set("s", id);
+        history.replaceState(null, "", u);
+    } catch (e) {}
 
-            connectTimeout: 8000
+}
 
-        }
-    );
+function wybierz(id) {
 
+    if (!id || id === aktualna || !POPRAWNE_ID.test(id))
+        return;
 
-klient.on(
-    "connect",
-    () => {
-
-        ustawStan(
-            "offline",
-            "Broker OK"
-        );
-
-
-        klient.subscribe(
-            TEMATY.temperatura
-        );
-
-        klient.subscribe(
-            TEMATY.wilgotnosc
-        );
-
-        klient.subscribe(
-            TEMATY.gleba
-        );
-
-        klient.subscribe(
-            TEMATY.stanPelny
-        );
-
-        klient.subscribe(
-            TEMATY.ustawienia
-        );
-
-        klient.subscribe(
-            TEMATY.online
-        );
-
-
-        klient.publish(
-            TEMATY.sterWarunki,
-            "get_settings"
-        );
-
+    if (aktualna) {
+        klient.unsubscribe("greenhouse/" + aktualna + "/sensors/#");
+        klient.unsubscribe("greenhouse/" + aktualna + "/state/#");
     }
-);
 
+    aktualna = id;
+    zapamietajWybor(id);
 
-klient.on(
-    "reconnect",
-    () =>
-        ustawStan(
-            null,
-            "Łączenie"
-        )
-);
+    resetujWidok();
 
+    klient.subscribe([
+        "greenhouse/" + id + "/sensors/#",
+        "greenhouse/" + id + "/state/#"
+    ]);
 
-klient.on(
-    "close",
-    () =>
-        ustawStan(
-            "offline",
-            "Brak brokera"
-        )
-);
+    wyborSzklarni.value = id;
+    idSzklarni.textContent = id;
 
+    ustawWykresy(id);
+    przebudujListe();
+    odswiezStanSterownika();
 
-klient.on(
-    "error",
-    () =>
-        ustawStan(
-            "offline",
-            "Błąd połączenia"
-        )
-);
+}
 
+wyborSzklarni.addEventListener("change", () => wybierz(wyborSzklarni.value));
 
-klient.on(
-    "message",
-    (temat, ladunek) => {
+przyciskNazwa.addEventListener("click", () => {
 
-        const tresc =
-            ladunek
-                .toString()
-                .trim();
+    if (!aktualna)
+        return;
 
+    const obecna = (szklarnie[aktualna] && szklarnie[aktualna].nazwa) || "";
+    const nowa = prompt("Nowa nazwa szklarni (max 39 znaków):", obecna);
 
-        if (
-            temat ===
-            TEMATY.online
-        ) {
+    if (nowa === null)
+        return;
 
-            if (
-                tresc ===
-                "offline"
-            ) {
+    const czysta = nowa.replace(/[\u0000-\u001f"\\]/g, "").trim().slice(0, 39);
 
-                ostatniaWiadomosc = 0;
+    if (czysta)
+        wyslij("system", "set_name:" + czysta);
 
-                ustawStan(
-                    "offline",
-                    "Sterownik offline"
-                );
+});
 
-            }
+/* jeśli zapamiętanej szklarni nie ma, po chwili weź pierwszą znalezioną */
+setTimeout(() => {
 
-            return;
+    if (aktualna)
+        return;
 
-        }
+    const ids = Object.keys(szklarnie);
 
+    if (ids.length)
+        wybierz(ids[0]);
 
-        if (
-            temat !==
-            TEMATY.ustawienia
-        ) {
+}, 3500);
 
-            ostatniaWiadomosc =
-                Date.now();
+(function wczytajPreferowana() {
 
-            ustawStan(
-                "online",
-                "Podłączony"
-            );
+    try { preferowana = new URLSearchParams(location.search).get("s"); } catch (e) {}
 
-        }
-
-
-        if (
-            temat ===
-            TEMATY.temperatura
-        )
-            pokaz(
-                "wartoscTemp",
-                "temp",
-                tresc,
-                1
-            );
-
-
-        if (
-            temat ===
-            TEMATY.wilgotnosc
-        )
-            pokaz(
-                "wartoscWilg",
-                "hum",
-                tresc,
-                0
-            );
-
-
-        if (
-            temat ===
-            TEMATY.gleba
-        )
-            pokaz(
-                "wartoscGleba",
-                "soil",
-                tresc,
-                0
-            );
-
-
-        if (
-            temat ===
-            TEMATY.stanPelny
-        )
-            obsluzStanPelny(
-                tresc
-            );
-
-
-        if (
-            temat ===
-            TEMATY.ustawienia
-        )
-            obsluzUstawienia(
-                tresc
-            );
-
+    if (!preferowana) {
+        try { preferowana = localStorage.getItem(KLUCZ_PAMIECI); } catch (e) {}
     }
-);
+
+    if (preferowana && !POPRAWNE_ID.test(preferowana))
+        preferowana = null;
+
+})();
 
 
 /* ==================================================
    POKAZYWANIE POMIARÓW
    ================================================== */
 
-function pokaz(
-    idPola,
-    kluczZakresu,
-    tresc,
-    miejscaPoPrzecinku
-) {
+function pokaz(idPola, kluczZakresu, tresc, miejscaPoPrzecinku) {
 
-    const liczba =
-        parseFloat(
-            tresc.replace(
-                ",",
-                "."
-            )
-        );
+    const liczba = parseFloat(tresc.replace(",", "."));
 
-
-    document.getElementById(
-        idPola
-    ).textContent =
-        isNaN(liczba)
-            ? tresc
-            : liczba.toFixed(
-                miejscaPoPrzecinku
-            );
-
+    $(idPola).textContent = isNaN(liczba) ? tresc : liczba.toFixed(miejscaPoPrzecinku);
 
     if (!isNaN(liczba)) {
 
-        odczyty[
-            kluczZakresu
-        ] = liczba;
-
-        odswiezSkale(
-            kluczZakresu
-        );
+        odczyty[kluczZakresu] = liczba;
+        odswiezSkale(kluczZakresu);
 
     }
 
 }
 
+const OPIS_WODY = { 1: " (podlewanie)", 2: " (wsiąkanie)" };
 
-const OPIS_WODY = {
+function zaznaczOnOff(urzadzenie, wlaczone) {
 
-    1: " (podlewanie)",
-    2: " (wsiąkanie)"
-
-};
-
-
-function zaznaczOnOff(
-    urzadzenie,
-    wlaczone
-) {
-
-    document
-        .querySelectorAll(
-            `.przelacznik-onoff button[data-urzadzenie="${urzadzenie}"]`
-        )
-        .forEach(b => {
-
-            b.classList.toggle(
-                "wybrany",
-                b.dataset.cmd.endsWith(
-                    wlaczone
-                        ? "_on"
-                        : "_off"
-                )
-            );
-
-        });
+    document.querySelectorAll(`.przelacznik-onoff button[data-urzadzenie="${urzadzenie}"]`).forEach(b => {
+        b.classList.toggle("wybrany", b.dataset.cmd.endsWith(wlaczone ? "_on" : "_off"));
+    });
 
 }
 
+function zastosujTryb(urzadzenie, tryb) {
 
-/* ==================================================
-   STAN URZĄDZEŃ
-   ================================================== */
+    trybyUrzadzen[urzadzenie] = tryb;
 
-function obsluzStanPelny(tresc) {
-
-    let dane;
-
-    try {
-
-        dane =
-            JSON.parse(tresc);
-
-    } catch (e) {
-
-        return;
-
-    }
-
-
-    if (
-        typeof dane.pump ===
-        "boolean"
-    ) {
-
-        document.getElementById(
-            "stanPompki"
-        ).textContent =
-            (
-                dane.pump
-                    ? "Włączona"
-                    : "Wyłączona"
-            ) +
-            (
-                OPIS_WODY[
-                    dane.water_state
-                ] || ""
-            );
-
-
-        zaznaczOnOff(
-            "pump",
-            dane.pump
-        );
-
-    }
-
-
-    if (
-        typeof dane.fan ===
-        "boolean"
-    ) {
-
-        document.getElementById(
-            "stanWiatraka"
-        ).textContent =
-            dane.fan
-                ? "Włączony"
-                : "Wyłączony";
-
-
-        zaznaczOnOff(
-            "fan",
-            dane.fan
-        );
-
-    }
-
-
-    if (
-        typeof dane.auto_pump ===
-        "boolean"
-    )
-        zastosujTryb(
-            "pump",
-            dane.auto_pump
-                ? "auto"
-                : "manual"
-        );
-
-
-    if (
-        typeof dane.auto_fan ===
-        "boolean"
-    )
-        zastosujTryb(
-            "fan",
-            dane.auto_fan
-                ? "auto"
-                : "manual"
-        );
-
-
-    if (
-        typeof dane.auto_led ===
-        "boolean"
-    )
-        odzwierciedlTrybLed(
-            dane.auto_led
-                ? "auto"
-                : "reczny"
-        );
-
-}
-
-
-setInterval(
-    () => {
-
-        if (!ostatniaWiadomosc)
-            return;
-
-
-        if (
-            Date.now() -
-            ostatniaWiadomosc >
-            LIMIT_CISZY * 1000
-        ) {
-
-            ustawStan(
-                "offline",
-                "Brak danych"
-            );
-
-        }
-
-    },
-    5000
-);
-
-
-/* ==================================================
-   AUTO / MANUAL
-   ================================================== */
-
-function zastosujTryb(
-    urzadzenie,
-    tryb
-) {
-
-    trybyUrzadzen[
-        urzadzenie
-    ] = tryb;
-
-
-    document
-        .querySelectorAll(
-            `.tryb-urzadzenia[data-urzadzenie="${urzadzenie}"] button`
-        )
-        .forEach(b => {
-
-            b.classList.toggle(
-                "wybrany",
-                b.dataset.tryb === tryb
-            );
-
-        });
-
+    document.querySelectorAll(`.tryb-urzadzenia[data-urzadzenie="${urzadzenie}"] button`).forEach(b => {
+        b.classList.toggle("wybrany", b.dataset.tryb === tryb);
+    });
 
     odswiezDostepnoscAkcji();
 
 }
 
+function obsluzStanPelny(tresc) {
 
-const TEMAT_STEROWANIA = {
+    let dane;
 
-    pump:
-        TEMATY.sterPompka,
+    try { dane = JSON.parse(tresc); } catch (e) { return; }
 
-    fan:
-        TEMATY.sterWiatrak
+    if (typeof dane.pump === "boolean") {
 
-};
+        $("stanPompki").textContent =
+            (dane.pump ? "Włączona" : "Wyłączona") + (OPIS_WODY[dane.water_state] || "");
 
+        zaznaczOnOff("pump", dane.pump);
+
+    }
+
+    if (typeof dane.fan === "boolean") {
+
+        $("stanWiatraka").textContent = dane.fan ? "Włączony" : "Wyłączony";
+        zaznaczOnOff("fan", dane.fan);
+
+    }
+
+    if (typeof dane.auto_pump === "boolean")
+        zastosujTryb("pump", dane.auto_pump ? "auto" : "manual");
+
+    if (typeof dane.auto_fan === "boolean")
+        zastosujTryb("fan", dane.auto_fan ? "auto" : "manual");
+
+    /* LED: tryb, aktywny slot, czas sterownika i to, co faktycznie świeci */
+    if (dane.led_mode)
+        ledTryb = dane.led_mode;
+
+    if (typeof dane.led_slot === "number")
+        ledSlot = dane.led_slot;
+
+    if (typeof dane.time === "string")
+        czasSter = dane.time;
+
+    odswiezTrybLed();
+    odswiezOpisLed();
+
+    if (Date.now() > podgladEdycjaDo && dane.led_fx) {
+
+        podgladLook = {
+            fx: dane.led_fx,
+            bri: dane.led_bri,
+            spd: dane.led_spd,
+            c1: nHex(dane.led_c1),
+            c2: nHex(dane.led_c2)
+        };
+
+    }
+
+    /* kalibracja */
+    if (typeof dane.raw === "number")
+        obsluzRaw(String(dane.raw));
+
+    kalHold = !!dane.cal_hold;
+    odswiezKal();
+
+}
+
+const TEMAT_STEROWANIA = { pump: "pump", fan: "fan" };
 
 const KOMENDA_TRYBU = {
-
-    pump: {
-
-        auto:
-            "auto_pump",
-
-        manual:
-            "manual_pump"
-
-    },
-
-    fan: {
-
-        auto:
-            "auto_fan",
-
-        manual:
-            "manual_fan"
-
-    }
-
+    pump: { auto: "auto_pump", manual: "manual_pump" },
+    fan:  { auto: "auto_fan",  manual: "manual_fan" }
 };
 
+document.querySelectorAll(".tryb-urzadzenia button").forEach(przycisk => {
 
-document
-    .querySelectorAll(
-        ".tryb-urzadzenia button"
-    )
-    .forEach(przycisk => {
+    przycisk.addEventListener("click", () => {
 
-        przycisk.addEventListener(
-            "click",
-            () => {
+        const urzadzenie = przycisk.closest(".tryb-urzadzenia").dataset.urzadzenie;
+        const tryb = przycisk.dataset.tryb;
 
-                const urzadzenie =
-                    przycisk
-                        .closest(
-                            ".tryb-urzadzenia"
-                        )
-                        .dataset
-                        .urzadzenie;
-
-
-                const tryb =
-                    przycisk.dataset.tryb;
-
-
-                klient.publish(
-                    TEMAT_STEROWANIA[
-                        urzadzenie
-                    ],
-                    KOMENDA_TRYBU[
-                        urzadzenie
-                    ][tryb]
-                );
-
-
-                zastosujTryb(
-                    urzadzenie,
-                    tryb
-                );
-
-            }
-        );
-
-    });
-
-
-/* ==================================================
-   WŁĄCZ / WYŁĄCZ
-   ================================================== */
-
-document
-    .querySelectorAll(
-        ".przelacznik-onoff button[data-urzadzenie]"
-    )
-    .forEach(przycisk => {
-
-        przycisk.addEventListener(
-            "click",
-            () => {
-
-                const urzadzenie =
-                    przycisk.dataset
-                        .urzadzenie;
-
-
-                klient.publish(
-                    TEMAT_STEROWANIA[
-                        urzadzenie
-                    ],
-                    przycisk.dataset.cmd
-                );
-
-
-                przycisk
-                    .parentElement
-                    .querySelectorAll(
-                        "button"
-                    )
-                    .forEach(
-                        b =>
-                            b.classList.remove(
-                                "wybrany"
-                            )
-                    );
-
-
-                przycisk.classList.add(
-                    "wybrany"
-                );
-
-            }
-        );
-
-    });
-
-
-/* ==================================================
-   LED
-   ================================================== */
-
-const PRESETY_LED = [
-
-    {
-        nazwa: "Czerwony",
-        hex: "#c0392b"
-    },
-
-    {
-        nazwa: "Pomarańczowy",
-        hex: "#d9822b"
-    },
-
-    {
-        nazwa: "Żółty",
-        hex: "#d4b106"
-    },
-
-    {
-        nazwa: "Zielony",
-        hex: "#3f7a4e"
-    },
-
-    {
-        nazwa: "Turkusowy",
-        hex: "#1f9c8a"
-    },
-
-    {
-        nazwa: "Niebieski",
-        hex: "#2d5a96"
-    },
-
-    {
-        nazwa: "Fioletowy",
-        hex: "#6a4c93"
-    },
-
-    {
-        nazwa: "Różowy",
-        hex: "#c2447a"
-    },
-
-    {
-        nazwa: "Biały",
-        hex: "#f2f2f2"
-    }
-
-];
-
-
-const siatkaPalety =
-    document.getElementById(
-        "siatkaPalety"
-    );
-
-
-const wejscieKoloruWlasnego =
-    document.getElementById(
-        "kolorWlasny"
-    );
-
-
-const przyciskAutoLed =
-    document.getElementById(
-        "przyciskAutoLed"
-    );
-
-
-function zbudujPaleteLed() {
-
-    PRESETY_LED.forEach(
-        kolor => {
-
-            const przycisk =
-                document.createElement(
-                    "button"
-                );
-
-
-            przycisk.type =
-                "button";
-
-
-            przycisk.className =
-                "kolorek";
-
-
-            przycisk.style.backgroundColor =
-                kolor.hex;
-
-
-            przycisk.setAttribute(
-                "aria-label",
-                kolor.nazwa
-            );
-
-
-            przycisk.dataset.hex =
-                kolor.hex;
-
-
-            przycisk.disabled =
-                true;
-
-
-            siatkaPalety.appendChild(
-                przycisk
-            );
-
-        }
-    );
-
-
-    const wylacz =
-        document.createElement(
-            "button"
-        );
-
-
-    wylacz.type =
-        "button";
-
-
-    wylacz.className =
-        "kolorek wylaczony";
-
-
-    wylacz.setAttribute(
-        "aria-label",
-        "Wyłączone"
-    );
-
-
-    wylacz.dataset.led =
-        "led_off";
-
-
-    wylacz.disabled =
-        true;
-
-
-    siatkaPalety.appendChild(
-        wylacz
-    );
-
-}
-
-
-zbudujPaleteLed();
-
-
-function wyczyscPodswietleniaLed() {
-
-    document
-        .querySelectorAll(
-            ".kolorek"
-        )
-        .forEach(
-            b =>
-                b.classList.remove(
-                    "aktywny"
-                )
-        );
-
-
-    przyciskAutoLed.classList.remove(
-        "wybrany"
-    );
-
-}
-
-
-function odzwierciedlTrybLed(tryb) {
-
-    przyciskAutoLed.classList.toggle(
-        "wybrany",
-        tryb === "auto"
-    );
-
-}
-
-
-siatkaPalety.addEventListener(
-    "click",
-    event => {
-
-        const przycisk =
-            event.target.closest(
-                ".kolorek"
-            );
-
-
-        if (
-            !przycisk ||
-            przycisk.disabled
-        )
+        if (!wyslij(TEMAT_STEROWANIA[urzadzenie], KOMENDA_TRYBU[urzadzenie][tryb]))
             return;
 
+        zastosujTryb(urzadzenie, tryb);
 
-        if (
-            przycisk.dataset.led ===
-            "led_off"
-        ) {
+    });
 
-            klient.publish(
-                TEMATY.sterLed,
-                "led_off"
-            );
+});
 
-        } else {
+document.querySelectorAll(".przelacznik-onoff button[data-urzadzenie]").forEach(przycisk => {
 
-            klient.publish(
-                TEMATY.sterLed,
-                "led_custom:" +
-                przycisk.dataset.hex
-            );
+    przycisk.addEventListener("click", () => {
+
+        const urzadzenie = przycisk.dataset.urzadzenie;
+
+        if (!wyslij(TEMAT_STEROWANIA[urzadzenie], przycisk.dataset.cmd))
+            return;
+
+        przycisk.parentElement.querySelectorAll("button").forEach(b => b.classList.remove("wybrany"));
+        przycisk.classList.add("wybrany");
+
+    });
+
+});
+
+
+/* ==================================================
+   KALIBRACJA CZUJNIKA GLEBY
+   ================================================== */
+
+const calRaw = $("calRaw");
+const calDry = $("calDry");
+const calWet = $("calWet");
+const calProc = $("calProc");
+const calZnacznik = $("calZnacznik");
+const calLiveBtn = $("calLive");
+const komunikatKal = $("komunikatKal");
+
+let kalDane = { dry: null, wet: null, ok: false };
+let kalRaw = null;
+let kalLive = false;
+let kalLiveTimer = null;
+let kalHold = false;
+
+function odswiezKal() {
+
+    calRaw.textContent = kalRaw === null ? "--" : kalRaw;
+    calDry.textContent = kalDane.dry === null ? "--" : kalDane.dry;
+    calWet.textContent = kalDane.wet === null ? "--" : kalDane.wet;
+
+    if (kalRaw !== null && kalDane.dry !== null && kalDane.wet !== null && kalDane.dry !== kalDane.wet) {
+
+        const p = (kalRaw - kalDane.dry) / (kalDane.wet - kalDane.dry) * 100;
+
+        calZnacznik.style.left = Math.max(0, Math.min(100, p)) + "%";
+        calZnacznik.classList.add("widoczny");
+
+    } else {
+
+        calZnacznik.classList.remove("widoczny");
+
+    }
+
+    calLiveBtn.textContent = kalLive ? "Zatrzymaj podgląd" : "Podgląd na żywo";
+
+}
+
+function obsluzRaw(tresc) {
+
+    const n = parseInt(tresc, 10);
+
+    if (isNaN(n))
+        return;
+
+    kalRaw = n;
+    odswiezKal();
+
+}
+
+function obsluzKalibracje(tresc) {
+
+    let dane;
+
+    try { dane = JSON.parse(tresc); } catch (e) { return; }
+
+    kalDane = { dry: dane.dry, wet: dane.wet, ok: !!dane.ok };
+
+    odswiezKal();
+
+    if (!kalDane.ok)
+        pokazKom(komunikatKal, "Kalibracja niekompletna - odstęp między suchym a mokrym jest za mały. Podlewanie automatyczne jest wyłączone.", "blad");
+
+}
+
+function obsluzKomunikat(tresc) {
+
+    const i = tresc.indexOf(":");
+
+    if (i < 0)
+        return;
+
+    const rodzaj = tresc.slice(0, i);
+    const tekst = tresc.slice(i + 1);
+
+    if (rodzaj === "calib")
+        pokazKom(komunikatKal, tekst, /^Blad|za maly/.test(tekst) ? "blad" : "ok");
+
+}
+
+function koniecPodgladu() {
+
+    kalLive = false;
+    clearTimeout(kalLiveTimer);
+    odswiezKal();
+
+}
+
+calLiveBtn.addEventListener("click", () => {
+
+    if (!kalLive) {
+
+        if (!wyslij("calib", "cal_live:1"))
+            return;
+
+        kalLive = true;
+        clearTimeout(kalLiveTimer);
+        kalLiveTimer = setTimeout(koniecPodgladu, 120000);
+        pokazKom(komunikatKal, "Podgląd na żywo włączony (2 min), podlewanie wstrzymane");
+
+    } else {
+
+        wyslij("calib", "cal_live:0");
+        koniecPodgladu();
+        pokazKom(komunikatKal, "Podgląd wyłączony");
+
+    }
+
+    odswiezKal();
+
+});
+
+$("calDryBtn").addEventListener("click", () => {
+
+    if (wyslij("calib", "cal_dry"))
+        pokazKom(komunikatKal, "Zapisuję punkt SUCHO, czekam na potwierdzenie...");
+
+});
+
+$("calWetBtn").addEventListener("click", () => {
+
+    if (wyslij("calib", "cal_wet"))
+        pokazKom(komunikatKal, "Zapisuję punkt MOKRO, czekam na potwierdzenie...");
+
+});
+
+$("calResetBtn").addEventListener("click", () => {
+
+    if (!confirm("Przywrócić fabryczną kalibrację czujnika gleby?"))
+        return;
+
+    if (wyslij("calib", "cal_reset"))
+        pokazKom(komunikatKal, "Przywracam ustawienia fabryczne...");
+
+});
+
+
+/* ==================================================
+   STUDIO LED
+   ================================================== */
+
+const EFEKTY = [
+    ["off", "Wyłączone"], ["solid", "Stały"], ["breathe", "Oddychanie"], ["rainbow", "Tęcza"],
+    ["chase", "Bieg"], ["twinkle", "Iskry"], ["wave", "Fala"], ["fire", "Ogień"]
+];
+
+/* ile kolorów używa efekt i czy ma prędkość */
+const FX_KOLORY = { off: 0, solid: 1, breathe: 1, rainbow: 0, chase: 2, twinkle: 2, wave: 2, fire: 0 };
+const FX_SZYBKOSC = { off: false, solid: false, breathe: true, rainbow: true, chase: true, twinkle: true, wave: true, fire: false };
+
+const PRESETY_LED = [
+    "#c0392b", "#d9822b", "#d4b106", "#3f7a4e", "#1f9c8a",
+    "#2d5a96", "#6a4c93", "#c2447a", "#f2f2f2"
+];
+
+function lookNaKomende(l) {
+
+    return "fx=" + l.fx + ";bri=" + l.bri + ";spd=" + l.spd +
+           ";c1=" + l.c1.slice(1) + ";c2=" + l.c2.slice(1);
+
+}
+
+/* stan LED ze sterownika */
+let ledStan = null;
+let ledTryb = "auto";
+let ledSlot = -1;
+let czasSter = "";
+
+let edycjaWlasnaTs = 0;
+let autoEdycja = false;
+let harmEdycja = false;
+
+
+/* ---------- podgląd animacji (przybliżenie tego, co robi sterownik) ---------- */
+
+let podgladLook = { fx: "solid", bri: 80, spd: 50, c1: "#149941", c2: "#000000" };
+let podgladEdycjaDo = 0;
+
+function ustawPodglad(look) {
+
+    podgladLook = { fx: look.fx, bri: look.bri, spd: look.spd, c1: look.c1, c2: look.c2 };
+    podgladEdycjaDo = Date.now() + 8000;
+
+}
+
+function mieszaj(a, b, k) {
+
+    return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k];
+
+}
+
+function hsv2rgb(h, s, v) {
+
+    const i = Math.floor(h * 6), f = h * 6 - i;
+    const p = v * (1 - s), q = v * (1 - f * s), t = v * (1 - (1 - f) * s);
+    const m = [[v, t, p], [q, v, p], [p, v, t], [p, q, v], [t, p, v], [v, p, q]][i % 6];
+
+    return [m[0] * 255, m[1] * 255, m[2] * 255];
+
+}
+
+function efektKolory(L, t) {
+
+    const N = 16;
+    const out = [];
+    const c1 = hex2rgb(L.c1), c2 = hex2rgb(L.c2);
+    const spd = Math.max(1, L.spd);
+
+    switch (L.fx) {
+
+        case "off":
+            for (let i = 0; i < N; i++) out.push([0, 0, 0]);
+            break;
+
+        case "solid":
+            for (let i = 0; i < N; i++) out.push(c1);
+            break;
+
+        case "breathe": {
+            const bpm = 4 + (spd - 1) * 36 / 99;
+            const v = 0.06 + 0.94 * (0.5 + 0.5 * Math.sin(2 * Math.PI * (bpm / 60) * t / 1000));
+            for (let i = 0; i < N; i++) out.push([c1[0] * v, c1[1] * v, c1[2] * v]);
+            break;
+        }
+
+        case "rainbow": {
+            const h0 = (t * spd / 512) % 256;
+            for (let i = 0; i < N; i++) out.push(hsv2rgb(((h0 + i * 16) % 256) / 256, 1, 1));
+            break;
+        }
+
+        case "chase": {
+            const pos = Math.floor(t * spd / 6000) % N;
+            for (let i = 0; i < N; i++) {
+                const d = (pos - i + N) % N;
+                out.push(d < 6 ? mieszaj(c2, c1, (255 - d * 42) / 255) : c2);
+            }
+            break;
+        }
+
+        case "twinkle": {
+            const r = 0.4 + (spd - 1) * 5 / 99;
+            for (let i = 0; i < N; i++) {
+                const x = (t / 1000 * r * (0.8 + 0.4 * ((i * 7) % 5) / 5) + i * 0.37) % 1;
+                out.push(mieszaj(c2, c1, x < 0.3 ? 1 - x / 0.3 : 0));
+            }
+            break;
+        }
+
+        case "wave": {
+            const faza = (t * spd / 512) % 256;
+            for (let i = 0; i < N; i++) {
+                const v = 0.5 + 0.5 * Math.sin(2 * Math.PI * (i * 16 + faza) / 256);
+                out.push(mieszaj(c1, c2, v));
+            }
+            break;
+        }
+
+        case "fire":
+            for (let i = 0; i < N; i++) {
+                const h = Math.max(0, 1 - i / N * 1.2 + 0.35 * Math.sin(t / 90 + i * 2.3) + 0.25 * Math.sin(t / 37 + i * 5.1));
+                out.push([
+                    Math.min(1, h * 3) * 255,
+                    Math.min(1, Math.max(0, h * 3 - 1)) * 255,
+                    Math.min(1, Math.max(0, h * 3 - 2)) * 255
+                ]);
+            }
+            break;
+
+        default:
+            for (let i = 0; i < N; i++) out.push([0, 0, 0]);
+
+    }
+
+    const sk = L.fx === "off" ? 0 : L.bri / 100;
+
+    return out.map(c => [c[0] * sk, c[1] * sk, c[2] * sk]);
+
+}
+
+const podgladLed = $("podgladLed");
+const diodyPodgladu = [];
+
+for (let i = 0; i < 16; i++) {
+
+    const d = document.createElement("span");
+    d.className = "st-led";
+    podgladLed.appendChild(d);
+    diodyPodgladu.push(d);
+
+}
+
+function petlaPodgladu(t) {
+
+    const kol = efektKolory(podgladLook, t);
+
+    diodyPodgladu.forEach((el, i) => {
+
+        const c = kol[i];
+        const s = "rgb(" + (c[0] | 0) + "," + (c[1] | 0) + "," + (c[2] | 0) + ")";
+
+        el.style.background = s;
+        el.style.boxShadow = "0 0 10px " + s;
+
+    });
+
+    requestAnimationFrame(petlaPodgladu);
+
+}
+
+requestAnimationFrame(petlaPodgladu);
+
+
+/* ---------- edytor wyglądu (używany do trybu własnego i do slotów) ---------- */
+
+function zbudujEdytor(kontener, opcje) {
+
+    const o = Object.assign({ paleta: true, onZmiana: () => {} }, opcje || {});
+    const look = { fx: "solid", bri: 80, spd: 50, c1: "#149941", c2: "#000000" };
+
+    kontener.innerHTML =
+        '<div class="st-chipy"></div>' +
+        '<div class="st-kolory">' +
+            '<label class="st-kolor st-k1"><span>Kolor 1</span><input type="color" class="st-ster e-c1"></label>' +
+            '<label class="st-kolor st-k2"><span>Kolor 2 (tło)</span><input type="color" class="st-ster e-c2"></label>' +
+            '<div class="st-kolor st-pal"><span>Szybki wybór koloru 1</span><div class="st-paleta"></div></div>' +
+        '</div>' +
+        '<div class="st-suwaki">' +
+            '<label><span>Jasność: <b class="e-bri-v">80</b>%</span><input type="range" min="0" max="100" class="st-ster e-bri"></label>' +
+            '<label class="st-spd"><span>Prędkość: <b class="e-spd-v">50</b></span><input type="range" min="1" max="100" class="st-ster e-spd"></label>' +
+        '</div>';
+
+    const chipy = kontener.querySelector(".st-chipy");
+    const k1 = kontener.querySelector(".st-k1");
+    const k2 = kontener.querySelector(".st-k2");
+    const pal = kontener.querySelector(".st-pal");
+    const spdLabel = kontener.querySelector(".st-spd");
+    const inC1 = kontener.querySelector(".e-c1");
+    const inC2 = kontener.querySelector(".e-c2");
+    const inBri = kontener.querySelector(".e-bri");
+    const inSpd = kontener.querySelector(".e-spd");
+    const vBri = kontener.querySelector(".e-bri-v");
+    const vSpd = kontener.querySelector(".e-spd-v");
+
+    function zmiana() {
+
+        ustawPodglad(look);
+        o.onZmiana({ ...look });
+
+    }
+
+    function odswiez() {
+
+        chipy.querySelectorAll(".st-chip").forEach(b => b.classList.toggle("st-on", b.dataset.fx === look.fx));
+
+        inC1.value = look.c1;
+        inC2.value = look.c2;
+        inBri.value = look.bri;
+        inSpd.value = look.spd;
+        vBri.textContent = look.bri;
+        vSpd.textContent = look.spd;
+
+        const ile = FX_KOLORY[look.fx] || 0;
+
+        k1.style.display = ile >= 1 ? "" : "none";
+        k2.style.display = ile >= 2 ? "" : "none";
+        pal.style.display = ile >= 1 ? "" : "none";
+        spdLabel.style.display = FX_SZYBKOSC[look.fx] ? "" : "none";
+
+    }
+
+    EFEKTY.forEach(([id, nazwa]) => {
+
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "st-chip st-ster";
+        b.dataset.fx = id;
+        b.textContent = nazwa;
+
+        b.addEventListener("click", () => {
+            look.fx = id;
+            odswiez();
+            zmiana();
+        });
+
+        chipy.appendChild(b);
+
+    });
+
+    if (o.paleta) {
+
+        const paleta = kontener.querySelector(".st-paleta");
+
+        PRESETY_LED.forEach(hex => {
+
+            const b = document.createElement("button");
+            b.type = "button";
+            b.className = "st-swatch st-ster";
+            b.style.background = hex;
+            b.setAttribute("aria-label", hex);
+
+            b.addEventListener("click", () => {
+                look.c1 = hex;
+                odswiez();
+                zmiana();
+            });
+
+            paleta.appendChild(b);
+
+        });
+
+    } else {
+
+        kontener.querySelector(".st-paleta").remove();
+
+    }
+
+    inC1.addEventListener("input", () => { look.c1 = inC1.value; zmiana(); });
+    inC2.addEventListener("input", () => { look.c2 = inC2.value; zmiana(); });
+
+    inBri.addEventListener("input", () => {
+        look.bri = parseInt(inBri.value, 10);
+        vBri.textContent = look.bri;
+        zmiana();
+    });
+
+    inSpd.addEventListener("input", () => {
+        look.spd = parseInt(inSpd.value, 10);
+        vSpd.textContent = look.spd;
+        zmiana();
+    });
+
+    odswiez();
+
+    return {
+
+        get: () => ({ ...look }),
+
+        set: l => {
+
+            if (!l)
+                return;
+
+            look.fx = l.fx || look.fx;
+            look.bri = Number.isFinite(+l.bri) ? +l.bri : look.bri;
+            look.spd = Number.isFinite(+l.spd) ? +l.spd : look.spd;
+            look.c1 = nHex(l.c1);
+            look.c2 = nHex(l.c2);
+            odswiez();
 
         }
 
+    };
 
-        wyczyscPodswietleniaLed();
+}
 
 
-        przycisk.classList.add(
-            "aktywny"
-        );
+/* ---------- tryb: auto / własny ---------- */
+
+const trybLed = $("trybLed");
+const stanLed = $("stanLed");
+
+function odswiezTrybLed() {
+
+    trybLed.querySelectorAll("button").forEach(b => b.classList.toggle("st-on", b.dataset.tryb === ledTryb));
+
+}
+
+trybLed.querySelectorAll("button").forEach(b => {
+
+    b.addEventListener("click", () => {
+
+        const tryb = b.dataset.tryb;
+
+        if (!wyslij("led", "led_mode:" + tryb))
+            return;
+
+        ledTryb = tryb;
+        odswiezTrybLed();
+        odswiezOpisLed();
+
+    });
+
+});
+
+const sloty = [];
+
+function odswiezOpisLed() {
+
+    let t = ledTryb === "manual" ? "Tryb: własny wygląd" : "Tryb: auto (kolory stanu szklarni)";
+
+    if (ledSlot >= 0)
+        t = "Teraz działa harmonogram: slot " + (ledSlot + 1) + " (nadpisuje tryb)";
+
+    if (polaczonyZUrzadzeniem)
+        t += (czasSter && czasSter !== "--:--")
+            ? " · czas sterownika " + czasSter
+            : " · sterownik nie ma jeszcze czasu z internetu (harmonogram nie działa)";
+
+    stanLed.textContent = t;
+
+    sloty.forEach((s, i) => {
+        s.el.classList.toggle("st-aktywny", i === ledSlot);
+        s.znacznik.textContent = i === ledSlot ? "AKTYWNY TERAZ" : "";
+    });
+
+}
+
+
+/* ---------- własny wygląd (na żywo) ---------- */
+
+const wyslijWlasny = opoznij(look => {
+
+    wyslij("led", "led_look:" + lookNaKomende(look));
+
+}, 200);
+
+const edytorWlasny = zbudujEdytor($("edytorWlasny"), {
+
+    paleta: true,
+
+    onZmiana: look => {
+
+        edycjaWlasnaTs = Date.now();
+        ledTryb = "manual";
+        odswiezTrybLed();
+        odswiezOpisLed();
+        wyslijWlasny(look);
 
     }
-);
+
+});
 
 
-wejscieKoloruWlasnego.addEventListener(
-    "input",
-    () => {
+/* ---------- tryb Auto: kolory stanu ---------- */
 
-        klient.publish(
-            TEMATY.sterLed,
-            "led_custom:" +
-            wejscieKoloruWlasnego.value
-        );
+const auBri = $("auBri");
+const auBriVal = $("auBriVal");
+const auPulse = $("auPulse");
+const auPola = { ok: $("auOk"), sl: $("auSoilLow"), sh: $("auSoilHigh"), tp: $("auTemp"), hm: $("auHum") };
+const komunikatAuto = $("komunikatAuto");
 
+function wpiszAuto(a) {
 
-        wyczyscPodswietleniaLed();
+    auBri.value = a.bri;
+    auBriVal.textContent = a.bri;
+    auPulse.checked = !!a.pulse;
+
+    Object.keys(auPola).forEach(k => { if (a[k]) auPola[k].value = nHex(a[k]); });
+
+}
+
+function oznaczAuto() {
+
+    autoEdycja = true;
+    pokazKom(komunikatAuto, "Zmiany nie zostały jeszcze wysłane do sterownika");
+
+}
+
+auBri.addEventListener("input", () => { auBriVal.textContent = auBri.value; oznaczAuto(); });
+auPulse.addEventListener("input", oznaczAuto);
+Object.values(auPola).forEach(p => p.addEventListener("input", oznaczAuto));
+
+$("auZapisz").addEventListener("click", () => {
+
+    const kolory = Object.keys(auPola).map(k => k + "=" + auPola[k].value.slice(1)).join(";");
+
+    const komenda = "led_auto:bri=" + auBri.value + ";pulse=" + (auPulse.checked ? 1 : 0) + ";" + kolory;
+
+    if (!wyslij("led", komenda))
+        return;
+
+    autoEdycja = false;
+    pokazKom(komunikatAuto, "Wysłano do sterownika", "ok");
+
+});
+
+$("auWczytaj").addEventListener("click", () => {
+
+    if (ledStan && ledStan.auto) {
+
+        autoEdycja = false;
+        wpiszAuto(ledStan.auto);
+        pokazKom(komunikatAuto, "Wczytano ze sterownika", "ok");
+
+    } else {
+
+        wyslij("led", "led_get");
 
     }
-);
+
+});
 
 
-przyciskAutoLed.addEventListener(
-    "click",
-    () => {
+/* ---------- harmonogram ---------- */
 
-        klient.publish(
-            TEMATY.sterLed,
-            "auto_led"
-        );
+const harmWlacz = $("harmWlacz");
+const listaSlotow = $("listaSlotow");
+const komunikatHarm = $("komunikatHarm");
 
+function oznaczHarm() {
 
-        wyczyscPodswietleniaLed();
+    harmEdycja = true;
+    pokazKom(komunikatHarm, "Zmiany nie zostały jeszcze wysłane do sterownika");
 
+}
 
-        przyciskAutoLed.classList.add(
-            "wybrany"
-        );
+for (let i = 0; i < 6; i++) {
+
+    const el = document.createElement("div");
+    el.className = "st-slot";
+
+    el.innerHTML =
+        '<div class="st-slot-glowa">' +
+            '<label class="st-przelacznik"><input type="checkbox" class="st-ster sl-en"> Slot ' + (i + 1) + '</label>' +
+            '<label>od <input type="time" class="st-ster sl-od" value="08:00"></label>' +
+            '<label>do <input type="time" class="st-ster sl-do" value="20:00"></label>' +
+            '<span class="st-znacznik-slotu"></span>' +
+        '</div>' +
+        '<div class="sl-edytor"></div>';
+
+    listaSlotow.appendChild(el);
+
+    const edytor = zbudujEdytor(el.querySelector(".sl-edytor"), {
+        paleta: false,
+        onZmiana: () => oznaczHarm()
+    });
+
+    const slot = {
+        el,
+        en: el.querySelector(".sl-en"),
+        od: el.querySelector(".sl-od"),
+        doo: el.querySelector(".sl-do"),
+        znacznik: el.querySelector(".st-znacznik-slotu"),
+        edytor
+    };
+
+    [slot.en, slot.od, slot.doo].forEach(x => x.addEventListener("input", oznaczHarm));
+
+    sloty.push(slot);
+
+}
+
+harmWlacz.addEventListener("input", oznaczHarm);
+
+function wpiszHarmonogram(dane) {
+
+    harmWlacz.checked = !!dane.sched;
+
+    (dane.slots || []).forEach((s, i) => {
+
+        if (!sloty[i])
+            return;
+
+        sloty[i].en.checked = !!s.en;
+        sloty[i].od.value = s.from;
+        sloty[i].doo.value = s.to;
+        sloty[i].edytor.set(s);
+
+    });
+
+}
+
+$("harmZapisz").addEventListener("click", () => {
+
+    for (const s of sloty) {
+
+        if (!s.od.value || !s.doo.value) {
+            pokazKom(komunikatHarm, "Uzupełnij godziny we wszystkich slotach", "blad");
+            return;
+        }
 
     }
-);
+
+    if (!klient.connected || !aktualna)
+        return;
+
+    sloty.forEach((s, i) => {
+
+        wyslij("led",
+            "led_slot:i=" + i +
+            ";en=" + (s.en.checked ? 1 : 0) +
+            ";from=" + s.od.value +
+            ";to=" + s.doo.value +
+            ";" + lookNaKomende(s.edytor.get()));
+
+    });
+
+    wyslij("led", "led_sched:en=" + (harmWlacz.checked ? 1 : 0));
+
+    harmEdycja = false;
+    pokazKom(komunikatHarm, "Wysłano do sterownika", "ok");
+
+});
+
+$("harmWczytaj").addEventListener("click", () => {
+
+    if (ledStan && ledStan.slots) {
+
+        harmEdycja = false;
+        wpiszHarmonogram(ledStan);
+        pokazKom(komunikatHarm, "Wczytano ze sterownika", "ok");
+
+    } else {
+
+        wyslij("led", "led_get");
+
+    }
+
+});
+
+
+/* ---------- stan LED ze sterownika (retained) ---------- */
+
+function obsluzStanLed(tresc) {
+
+    let dane;
+
+    try { dane = JSON.parse(tresc); } catch (e) { return; }
+
+    ledStan = dane;
+
+    if (dane.mode) {
+        ledTryb = dane.mode;
+        odswiezTrybLed();
+        odswiezOpisLed();
+    }
+
+    /* własny wygląd: nie nadpisuj, gdy ktoś właśnie suwa kontrolkami */
+    if (dane.look && Date.now() - edycjaWlasnaTs > 3000)
+        edytorWlasny.set(dane.look);
+
+    if (dane.auto) {
+
+        if (autoEdycja)
+            pokazKom(komunikatAuto, "Sterownik przysłał inne ustawienia - zapisz albo wczytaj je ponownie", "blad");
+        else
+            wpiszAuto(dane.auto);
+
+    }
+
+    if (dane.slots) {
+
+        if (harmEdycja)
+            pokazKom(komunikatHarm, "Sterownik przysłał inny harmonogram - zapisz albo wczytaj go ponownie", "blad");
+        else
+            wpiszHarmonogram(dane);
+
+    }
+
+}
+
+
+/* ==================================================
+   WIADOMOŚCI MQTT
+   ================================================== */
+
+klient.on("connect", () => {
+
+    klient.subscribe(["greenhouse/+/info", "greenhouse/+/online"]);
+
+    if (aktualna) {
+        klient.subscribe([
+            "greenhouse/" + aktualna + "/sensors/#",
+            "greenhouse/" + aktualna + "/state/#"
+        ]);
+    }
+
+    odswiezStanSterownika();
+
+});
+
+klient.on("reconnect", () => ustawStan(null, "Łączenie"));
+klient.on("close", () => ustawStan("offline", "Brak brokera"));
+klient.on("error", () => ustawStan("offline", "Błąd połączenia"));
+
+klient.on("message", (temat, ladunek, pakiet) => {
+
+    const tresc = ladunek.toString().trim();
+    const c = temat.split("/");
+
+    if (c[0] !== "greenhouse" || c.length < 3)
+        return;
+
+    const id = c[1];
+    const pod = c.slice(2).join("/");
+
+    if (pod === "info") {
+        obsluzInfo(id, tresc);
+        return;
+    }
+
+    if (pod === "online") {
+        obsluzOnline(id, tresc);
+        return;
+    }
+
+    if (id !== aktualna)
+        return;
+
+    /* świeża (nie retained) wiadomość = sterownik żyje */
+    if (!pakiet.retain) {
+        ostatniaWiadomosc = Date.now();
+        if (!polaczonyZUrzadzeniem)
+            ustawStan("online", "Podłączony");
+    }
+
+    switch (pod) {
+
+        case "sensors/temperature":
+            pokaz("wartoscTemp", "temp", tresc, 1);
+            break;
+
+        case "sensors/humidity":
+            pokaz("wartoscWilg", "hum", tresc, 0);
+            break;
+
+        case "sensors/moisture_percent":
+            pokaz("wartoscGleba", "soil", tresc, 0);
+            calProc.textContent = tresc + " %";
+            break;
+
+        case "sensors/soil_raw":
+            obsluzRaw(tresc);
+            break;
+
+        case "state/full":
+            obsluzStanPelny(tresc);
+            break;
+
+        case "state/settings":
+            obsluzUstawienia(tresc);
+            break;
+
+        case "state/led":
+            obsluzStanLed(tresc);
+            break;
+
+        case "state/calib":
+            obsluzKalibracje(tresc);
+            break;
+
+        case "state/msg":
+            obsluzKomunikat(tresc);
+            break;
+
+    }
+
+});
+
+
+/* ==================================================
+   CZYSZCZENIE WIDOKU PRZY ZMIANIE SZKLARNI
+   ================================================== */
+
+function resetujWidok() {
+
+    Object.keys(odczyty).forEach(k => { odczyty[k] = null; });
+
+    ["wartoscTemp", "wartoscWilg", "wartoscGleba"].forEach(id => { $(id).textContent = "--"; });
+
+    warunkiZUrzadzenia = null;
+    trwaEdycja = false;
+
+    document.querySelectorAll(".pola-warunku input").forEach(p => { p.value = ""; });
+
+    odswiezWszystkieSkale();
+    pokazKomunikat("Czekam na dane ze sterownika");
+
+    $("stanPompki").textContent = "--";
+    $("stanWiatraka").textContent = "--";
+
+    document.querySelectorAll(".przelacznik-onoff button, .tryb-urzadzenia button")
+        .forEach(b => b.classList.remove("wybrany"));
+
+    trybyUrzadzen.pump = "auto";
+    trybyUrzadzen.fan = "auto";
+
+    /* kalibracja */
+    kalDane = { dry: null, wet: null, ok: false };
+    kalRaw = null;
+    kalHold = false;
+    koniecPodgladu();
+    calProc.textContent = "--";
+    pokazKom(komunikatKal, "Czekam na dane ze sterownika");
+
+    /* LED */
+    ledStan = null;
+    ledTryb = "auto";
+    ledSlot = -1;
+    czasSter = "";
+    autoEdycja = false;
+    harmEdycja = false;
+    edycjaWlasnaTs = 0;
+    podgladEdycjaDo = 0;
+    pokazKom(komunikatAuto, "");
+    pokazKom(komunikatHarm, "");
+
+}
+
+
+/* ==================================================
+   START
+   ================================================== */
+
+ustawWykresy(null);
+odswiezKal();
+odswiezTrybLed();
+odswiezOpisLed();
+ustawStan(null, "Łączenie");
 
 </script>
 
 </body>
 </html>
-
-
