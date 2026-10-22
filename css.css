@@ -1131,6 +1131,23 @@ height: 600px;
     font-weight: 600;
     color: var(--st-zielen);
 }
+
+.visitor-counter {
+  margin: 24px auto 0;
+  padding: 10px 16px;
+  max-width: 900px;
+  text-align: center;
+  font-size: 14px;
+  color: #d8e8dc;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+}
+
+.visitor-counter span {
+  font-weight: 700;
+  color: #7ee787;
+}
  
 @media (max-width: 640px) {
     .st-kal-odczyt {
