@@ -2363,7 +2363,26 @@ odswiezTrybLed();
 odswiezOpisLed();
 ustawStan(null, "Łączenie");
 
-</script>
+<div class="visitor-counter">
+  Odwiedziny strony: <span id="visitCount">0</span>
+</div>
 
+<script>
+(function () {
+  const KEY = "szklarnia_visit_count";
+  const SESSION_KEY = "szklarnia_visit_counted";
+
+  let count = parseInt(localStorage.getItem(KEY) || "0", 10);
+
+  if (!sessionStorage.getItem(SESSION_KEY)) {
+    count += 1;
+    localStorage.setItem(KEY, count);
+    sessionStorage.setItem(SESSION_KEY, "1");
+  }
+
+  document.getElementById("visitCount").textContent = count.toLocaleString("pl-PL");
+})();
+</script>
+    
 </body>
 </html>
