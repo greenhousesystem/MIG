@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Moja szklarnia</title>
 <link rel="stylesheet" href="css.css">
-<link rel="stylesheet" href="studio.css">
 </head>
 
 <body>
@@ -18,15 +17,15 @@
         </a>
     </div>
 
-    <div class="menu">
+    <button type="button" class="menu" aria-label="Menu" aria-expanded="false" aria-controls="menuGlowne">
         <svg xmlns="http://www.w3.org/2000/svg" class="sandwich" viewBox="0 0 40 40" fill="none" aria-label="Menu">
             <line x1="8" y1="12" x2="32" y2="12" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
             <line x1="8" y1="20" x2="32" y2="20" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
             <line x1="8" y1="28" x2="32" y2="28" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
         </svg>
-    </div>
+    </button>
 
-    <div class="menuwrapper">
+    <div class="menuwrapper" id="menuGlowne" inert>
 
         <a href="onas.html">
             <div class="menuoption"
@@ -42,7 +41,7 @@
             </div>
         </a>
 
-        <a href="mojaszklarnia.html">
+        <a href="index.html">
             <div class="menuoption"
                  style="--in-delay: 0.28s; --out-delay: 0s; top: 284px; border-bottom: 5px solid rgb(45, 184, 45); border-bottom-left-radius: 6px;">
                 PANEL SZKLARNI
@@ -72,7 +71,8 @@
 
     <script type="module">
 
-        import { createShader } from 'https://esm.sh/shaders/js';
+        try {
+        const { createShader } = await import("https://esm.sh/shaders@4.0.5/js");
 
         await createShader(document.getElementById('bg'), {
 
@@ -150,6 +150,10 @@
 
         });
 
+        } catch (blad) {
+        // Brak WebGPU lub błąd CDN nie może unieruchamiać pozostałej strony.
+        console.warn('Animowane tło niedostępne. Pozostawiono zielone tło.', blad);
+    }
     </script>
 
 </div>
@@ -588,9 +592,17 @@
 <!-- MQTT + LOGIKA STRONY -->
 <!-- ========================================================= -->
 
-<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+<script src="https://unpkg.com/mqtt@5.16.1/dist/mqtt.min.js"></script>
 
 <script>
+
+(() => {
+if (!window.mqtt || typeof window.mqtt.connect !== 'function') {
+    document.getElementById('etykietaPolaczenia').textContent = 'Brak biblioteki MQTT';
+    document.getElementById('polaczenie').classList.add('offline');
+    document.getElementById('komunikatWarunkow').textContent = 'Nie udało się wczytać biblioteki MQTT. Sprawdź połączenie z internetem i blokowanie CDN.';
+    return;
+}
 
 /* ==================================================
    KONFIGURACJA MQTT
@@ -670,7 +682,7 @@ function pokazWykres(indeks) {
 
 function ustawWykresy(id) {
 
-    wykresy = (id && WYKRESY_SZKLARNI[id]) || [];
+    wykresy = id && Object.prototype.hasOwnProperty.call(WYKRESY_SZKLARNI, id) ? WYKRESY_SZKLARNI[id] : [];
 
     wyborWykresu.innerHTML = "";
 
@@ -738,7 +750,7 @@ const klient = mqtt.connect(BROKER, {
 });
 
 /* wszystkie szklarnie znalezione na brokerze: id -> { nazwa, online } */
-const szklarnie = {};
+const szklarnie = Object.create(null);
 
 let aktualna = null;            /* id wybranej szklarni */
 let preferowana = null;         /* id zapamiętane z poprzedniej wizyty lub z adresu ?s=... */
@@ -751,7 +763,7 @@ const przyciskNazwa = $("przyciskNazwa");
 /* wysyła polecenie do WYBRANEJ szklarni: pod = pump | fan | led | settings | calib | system */
 function wyslij(pod, tresc) {
 
-    if (!aktualna || !klient.connected)
+    if (!aktualna || !klient.connected || !polaczonyZUrzadzeniem)
         return false;
 
     klient.publish("greenhouse/" + aktualna + "/control/" + pod, tresc);
@@ -775,10 +787,12 @@ function opoznij(fn, ms) {
 
     let t = null;
 
-    return (...a) => {
+    const opozniona = (...a) => {
         clearTimeout(t);
         t = setTimeout(() => fn(...a), ms);
     };
+    opozniona.anuluj = () => clearTimeout(t);
+    return opozniona;
 
 }
 
@@ -931,6 +945,7 @@ function obsluzUstawienia(tresc) {
     let dane;
 
     try { dane = JSON.parse(tresc); } catch (e) { return; }
+    if (!dane || typeof dane !== 'object' || Array.isArray(dane)) return;
 
     warunkiZUrzadzenia = dane;
 
@@ -942,6 +957,7 @@ function obsluzUstawienia(tresc) {
     }
 
     wpiszWarunki(dane);
+    odswiezDostepnoscAkcji();
     pokazKomunikat("Warunki zgodne ze sterownikiem", "ok");
 
 }
@@ -956,7 +972,7 @@ function sprawdzFormularz() {
         const min = parseFloat($(zakres.poleMin).value);
         const max = parseFloat($(zakres.poleMax).value);
 
-        if (isNaN(min) || isNaN(max))
+        if (!Number.isFinite(min) || !Number.isFinite(max))
             return { blad: "Uzupełnij wszystkie pola" };
 
         if (min < zakres.osMin || max > zakres.osMax)
@@ -1075,13 +1091,14 @@ function odswiezDostepnoscAkcji() {
 
     /* wszystko w studiu LED i kalibracji */
     document.querySelectorAll(".st-ster").forEach(el => { el.disabled = !on; });
+    document.querySelectorAll('#trybLed .st-ster, #edytorWlasny .st-ster, #listaSlotow .st-ster, #auOk, #auSoilLow, #auSoilHigh, #auTemp, #auHum, #auBri, #auPulse, #auZapisz, #auWczytaj, #harmWlacz, #harmZapisz, #harmWczytaj').forEach(el => { el.disabled = !(on && ledStan); });
 
-    document.querySelectorAll(".pola-warunku input").forEach(p => { p.disabled = !on; });
+    document.querySelectorAll(".pola-warunku input").forEach(p => { p.disabled = !(on && warunkiZUrzadzenia); });
 
-    przyciskZapisz.disabled = !on;
+    przyciskZapisz.disabled = !(on && warunkiZUrzadzenia);
     przyciskPrzywroc.disabled = !on;
 
-    przyciskNazwa.disabled = !(klient.connected && aktualna);
+    przyciskNazwa.disabled = !on;
 
     if (!on && !trwaEdycja)
         pokazKomunikat("Brak połączenia ze sterownikiem - zmiana warunków niedostępna");
@@ -1181,6 +1198,15 @@ function obsluzInfo(id, tresc) {
 
     if (tresc === "") {          /* ktoś wyczyścił informację retained */
         delete szklarnie[id];
+        if (id === aktualna) {
+            klient.unsubscribe("greenhouse/" + id + "/sensors/#");
+            klient.unsubscribe("greenhouse/" + id + "/state/#");
+            aktualna = null;
+            resetujWidok();
+            idSzklarni.textContent = '';
+            ustawWykresy(null);
+            ustawStan("offline", "Wybierz szklarnię");
+        }
         przebudujListe();
         return;
     }
@@ -1188,19 +1214,13 @@ function obsluzInfo(id, tresc) {
     let dane;
 
     try { dane = JSON.parse(tresc); } catch (e) { return; }
+    if (!dane || typeof dane !== 'object' || Array.isArray(dane)) return;
 
     pobierzSzklarnie(id).nazwa = (typeof dane.name === "string") ? dane.name.slice(0, 40) : "";
 
     przebudujListe();
 
-    if (!aktualna) {
-
-        if (preferowana && szklarnie[preferowana])
-            wybierz(preferowana);
-        else if (!preferowana)
-            wybierz(id);
-
-    }
+    sprobujWybrac(id);
 
 }
 
@@ -1213,6 +1233,7 @@ function obsluzOnline(id, tresc) {
 
     przebudujListe();
 
+    sprobujWybrac(id);
     if (id === aktualna)
         odswiezStanSterownika();
 
@@ -1279,18 +1300,14 @@ przyciskNazwa.addEventListener("click", () => {
 
 });
 
-/* jeśli zapamiętanej szklarni nie ma, po chwili weź pierwszą znalezioną */
-setTimeout(() => {
-
-    if (aktualna)
-        return;
-
-    const ids = Object.keys(szklarnie);
-
-    if (ids.length)
-        wybierz(ids[0]);
-
-}, 3500);
+/* Okno oczekiwania na zapamiętane ID liczymy od połączenia, nie od załadowania HTML. */
+let moznaWybracZastepcza = false;
+let timerWyboru = null;
+function sprobujWybrac(id) {
+    if (aktualna) return;
+    if (preferowana && szklarnie[preferowana]) wybierz(preferowana);
+    else if (!preferowana || moznaWybracZastepcza) wybierz(id);
+}
 
 (function wczytajPreferowana() {
 
@@ -1312,16 +1329,11 @@ setTimeout(() => {
 
 function pokaz(idPola, kluczZakresu, tresc, miejscaPoPrzecinku) {
 
-    const liczba = parseFloat(tresc.replace(",", "."));
-
-    $(idPola).textContent = isNaN(liczba) ? tresc : liczba.toFixed(miejscaPoPrzecinku);
-
-    if (!isNaN(liczba)) {
-
-        odczyty[kluczZakresu] = liczba;
-        odswiezSkale(kluczZakresu);
-
-    }
+    const liczba = tresc === '' ? NaN : Number(tresc.replace(",", "."));
+    const poprawna = Number.isFinite(liczba);
+    $(idPola).textContent = poprawna ? liczba.toFixed(miejscaPoPrzecinku) : '--';
+    odczyty[kluczZakresu] = poprawna ? liczba : null;
+    odswiezSkale(kluczZakresu);
 
 }
 
@@ -1352,6 +1364,7 @@ function obsluzStanPelny(tresc) {
     let dane;
 
     try { dane = JSON.parse(tresc); } catch (e) { return; }
+    if (!dane || typeof dane !== 'object' || Array.isArray(dane)) return;
 
     if (typeof dane.pump === "boolean") {
 
@@ -1507,6 +1520,7 @@ function obsluzKalibracje(tresc) {
     let dane;
 
     try { dane = JSON.parse(tresc); } catch (e) { return; }
+    if (!dane || typeof dane !== 'object' || Array.isArray(dane)) return;
 
     kalDane = { dry: dane.dry, wet: dane.wet, ok: !!dane.ok };
 
@@ -1963,9 +1977,9 @@ function odswiezOpisLed() {
 
 /* ---------- własny wygląd (na żywo) ---------- */
 
-const wyslijWlasny = opoznij(look => {
+const wyslijWlasny = opoznij((look, id) => {
 
-    wyslij("led", "led_look:" + lookNaKomende(look));
+    if (id === aktualna) wyslij("led", "led_look:" + lookNaKomende(look));
 
 }, 200);
 
@@ -1979,7 +1993,7 @@ const edytorWlasny = zbudujEdytor($("edytorWlasny"), {
         ledTryb = "manual";
         odswiezTrybLed();
         odswiezOpisLed();
-        wyslijWlasny(look);
+        wyslijWlasny(look, aktualna);
 
     }
 
@@ -2101,9 +2115,9 @@ function wpiszHarmonogram(dane) {
 
     harmWlacz.checked = !!dane.sched;
 
-    (dane.slots || []).forEach((s, i) => {
+    (Array.isArray(dane.slots) ? dane.slots : []).forEach((s, i) => {
 
-        if (!sloty[i])
+        if (!sloty[i] || !s || typeof s !== 'object')
             return;
 
         sloty[i].en.checked = !!s.en;
@@ -2171,8 +2185,10 @@ function obsluzStanLed(tresc) {
     let dane;
 
     try { dane = JSON.parse(tresc); } catch (e) { return; }
+    if (!dane || typeof dane !== 'object' || Array.isArray(dane)) return;
 
     ledStan = dane;
+    odswiezDostepnoscAkcji();
 
     if (dane.mode) {
         ledTryb = dane.mode;
@@ -2212,6 +2228,13 @@ function obsluzStanLed(tresc) {
 klient.on("connect", () => {
 
     klient.subscribe(["greenhouse/+/info", "greenhouse/+/online"]);
+    clearTimeout(timerWyboru);
+    moznaWybracZastepcza = false;
+    timerWyboru = setTimeout(() => {
+        moznaWybracZastepcza = true;
+        const ids = Object.keys(szklarnie);
+        if (ids.length) sprobujWybrac(ids[0]);
+    }, 3500);
 
     if (aktualna) {
         klient.subscribe([
@@ -2225,7 +2248,13 @@ klient.on("connect", () => {
 });
 
 klient.on("reconnect", () => ustawStan(null, "Łączenie"));
-klient.on("close", () => ustawStan("offline", "Brak brokera"));
+klient.on("close", () => {
+    wyslijWlasny.anuluj();
+    ostatniaWiadomosc = 0;
+    Object.values(szklarnie).forEach(s => { s.online = false; });
+    przebudujListe();
+    ustawStan("offline", "Brak brokera");
+});
 klient.on("error", () => ustawStan("offline", "Błąd połączenia"));
 
 klient.on("message", (temat, ladunek, pakiet) => {
@@ -2253,7 +2282,8 @@ klient.on("message", (temat, ladunek, pakiet) => {
         return;
 
     /* świeża (nie retained) wiadomość = sterownik żyje */
-    if (!pakiet.retain) {
+    if (!pakiet || !pakiet.retain) {
+        pobierzSzklarnie(id).online = true;
         ostatniaWiadomosc = Date.now();
         if (!polaczonyZUrzadzeniem)
             ustawStan("online", "Podłączony");
@@ -2308,6 +2338,9 @@ klient.on("message", (temat, ladunek, pakiet) => {
    ================================================== */
 
 function resetujWidok() {
+    wyslijWlasny.anuluj();
+    ostatniaWiadomosc = 0;
+    polaczonyZUrzadzeniem = false;
 
     Object.keys(odczyty).forEach(k => { odczyty[k] = null; });
 
@@ -2349,6 +2382,19 @@ function resetujWidok() {
     podgladEdycjaDo = 0;
     pokazKom(komunikatAuto, "");
     pokazKom(komunikatHarm, "");
+    podgladLook = { fx: 'off', bri: 0, spd: 50, c1: '#149941', c2: '#000000' };
+    edytorWlasny.set({ ...podgladLook, fx: 'solid', bri: 80 });
+    wpiszAuto({ bri: 80, pulse: false, ok: '000000', sl: '000000', sh: '000000', tp: '000000', hm: '000000' });
+    harmWlacz.checked = false;
+    sloty.forEach(s => {
+        s.en.checked = false;
+        s.od.value = '08:00';
+        s.doo.value = '20:00';
+        s.edytor.set({ fx: 'solid', bri: 80, spd: 50, c1: '#149941', c2: '#000000' });
+    });
+    odswiezTrybLed();
+    odswiezOpisLed();
+    odswiezDostepnoscAkcji();
 
 }
 
@@ -2362,6 +2408,8 @@ odswiezKal();
 odswiezTrybLed();
 odswiezOpisLed();
 ustawStan(null, "Łączenie");
+})();
+</script>
 
 <div class="visitor-counter">
   Odwiedziny strony: <span id="visitCount">0</span>
@@ -2369,20 +2417,83 @@ ustawStan(null, "Łączenie");
 
 <script>
 (function () {
-  const KEY = "szklarnia_visit_count";
-  const SESSION_KEY = "szklarnia_visit_counted";
+  const KEY = 'szklarnia_visit_count';
+  const SESSION_KEY = 'szklarnia_visit_counted';
+  const pole = document.getElementById('visitCount');
+  const poprawna = v => /^\d+$/.test(v || '') && Number.isSafeInteger(Number(v));
+  const pokaz = n => { pole.textContent = n.toLocaleString('pl-PL'); };
+  const blad = opis => { pole.textContent = '—'; pole.title = opis; };
 
-  let count = parseInt(localStorage.getItem(KEY) || "0", 10);
-
-  if (!sessionStorage.getItem(SESSION_KEY)) {
-    count += 1;
-    localStorage.setItem(KEY, count);
-    sessionStorage.setItem(SESSION_KEY, "1");
+  function policz() {
+    let nowyZnacznik = false;
+    try {
+      const zapis = localStorage.getItem(KEY);
+      // Uszkodzony zapis (np. tekst zamiast liczby) traktujemy jak brak danych.
+      const istnieje = poprawna(zapis);
+      let liczba = istnieje ? Number(zapis) : 0;
+      if (!sessionStorage.getItem(SESSION_KEY) || !istnieje) {
+        if (!Number.isSafeInteger(liczba + 1)) {
+          blad('Osiągnięto limit licznika. Zachowano dotychczasowy zapis.');
+          return;
+        }
+        // Nie zwiększamy wartości, jeżeli nie da się zapamiętać sesji karty.
+        sessionStorage.setItem(SESSION_KEY, '1');
+        nowyZnacznik = true;
+        localStorage.setItem(KEY, String(++liczba));
+      }
+      pokaz(liczba);
+    } catch (e) {
+      if (nowyZnacznik) { try { sessionStorage.removeItem(SESSION_KEY); } catch (_) {} }
+      blad('Licznik niedostępny: przeglądarka blokuje pamięć lub jej zapis.');
+    }
   }
 
-  document.getElementById("visitCount").textContent = count.toLocaleString("pl-PL");
+  // Blokada zapobiega utracie równoczesnych aktualizacji z kart, jeśli przeglądarka ją obsługuje.
+  if (navigator.locks && navigator.locks.request) {
+    navigator.locks.request('szklarnia-licznik', policz).catch(policz);
+  } else {
+    policz();
+  }
+  window.addEventListener('storage', e => {
+    if (e.key === KEY || e.key === null) {
+      if (poprawna(e.newValue)) pokaz(Number(e.newValue));
+      else blad('Zapis licznika został usunięty lub zmieniony w innej karcie.');
+    }
+  });
 })();
 </script>
     
+<script>
+// Ta sama nawigacja na wszystkich podstronach: mysz, dotyk i klawiatura.
+(() => {
+    const naglowek = document.querySelector('.nagluwek');
+    const przycisk = naglowek.querySelector('.menu');
+    const lista = naglowek.querySelector('.menuwrapper');
+    const ustaw = otwarte => {
+        naglowek.classList.toggle('menu-otwarte', otwarte);
+        przycisk.setAttribute('aria-expanded', String(otwarte));
+        lista.inert = !otwarte;
+    };
+    ustaw(false);
+    przycisk.addEventListener('click', () => ustaw(przycisk.getAttribute('aria-expanded') !== 'true'));
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        przycisk.addEventListener('mouseenter', () => ustaw(true));
+        naglowek.addEventListener('mouseleave', () => ustaw(false));
+    }
+    document.addEventListener('pointerdown', e => {
+        if (!naglowek.contains(e.target)) ustaw(false);
+    });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && przycisk.getAttribute('aria-expanded') === 'true') {
+            ustaw(false);
+            przycisk.focus();
+        }
+    });
+    naglowek.addEventListener('focusout', () => {
+        setTimeout(() => { if (!naglowek.contains(document.activeElement)) ustaw(false); }, 0);
+    });
+})();
+</script>
+
 </body>
 </html>
