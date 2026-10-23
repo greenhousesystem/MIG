@@ -99,6 +99,10 @@
   .p5 { background: linear-gradient(135deg, var(--mist), var(--mint)); }
   .p6 { background: linear-gradient(150deg, var(--green), var(--mint)); }
 
+/* Na jednym torze element span 2 tworzył dodatkową, niejawną kolumnę. */
+@media (max-width: 783px) {
+    .gallery-item.wide { grid-column: span 1; }
+}
 </style>
 </head>
 
@@ -106,11 +110,11 @@
 
 <div class="nagluwek">
     <div class="title">
-        <a href="onas.html">
+        <a href="index.html">
             <img src="logo.png" alt="Logo" style="height: 60px;">
         </a>
     </div>
-    <div class="menu">
+    <button type="button" class="menu" aria-label="Menu" aria-expanded="false" aria-controls="menuGlowne">
         <svg
         xmlns="http://www.w3.org/2000/svg" class="sandwich" viewBox="0 0 40 40"  fill="none" aria-label="Menu">
         <line x1="8" y1="12" x2="32" y2="12"
@@ -121,8 +125,8 @@
               stroke="currentColor" stroke-width="3" stroke-linecap="round" />
       </svg>
 
-    </div>
-    <div class="menuwrapper">
+    </button>
+    <div class="menuwrapper" id="menuGlowne" inert>
         <a href="onas.html">
         <div class="menuoption" style="--in-delay: 0s; --out-delay: 0.28s; top: 84px; border-top-left-radius: 6px;"> O NAS</div>
         </a>
@@ -150,7 +154,8 @@
     ></canvas>
   
     <script type="module">
-      import { createShader } from 'https://esm.sh/shaders/js';
+      try {
+        const { createShader } = await import("https://esm.sh/shaders@4.0.5/js");
   
       await createShader(document.getElementById('bg'), {
         components: [
@@ -222,13 +227,17 @@
           }
         ]
       });
+        } catch (blad) {
+        // Brak WebGPU lub błąd CDN nie może unieruchamiać pozostałej strony.
+        console.warn('Animowane tło niedostępne. Pozostawiono zielone tło.', blad);
+    }
     </script>
   </div>
 <!-- ///////////////////////////////////////////////////////////////////////////////////////////-->
 
 
 
-<section class="gallery" aria-label="Photo gallery">
+<section class="gallery" aria-label="Galeria zdjęć">
     <h2>Galeria</h2>
     <div class="gallery-grid">
       <figure class="gallery-item wide tall">
@@ -251,6 +260,38 @@
       </figure>
     </div>
   </section>
+
+<script>
+// Ta sama nawigacja na wszystkich podstronach: mysz, dotyk i klawiatura.
+(() => {
+    const naglowek = document.querySelector('.nagluwek');
+    const przycisk = naglowek.querySelector('.menu');
+    const lista = naglowek.querySelector('.menuwrapper');
+    const ustaw = otwarte => {
+        naglowek.classList.toggle('menu-otwarte', otwarte);
+        przycisk.setAttribute('aria-expanded', String(otwarte));
+        lista.inert = !otwarte;
+    };
+    ustaw(false);
+    przycisk.addEventListener('click', () => ustaw(przycisk.getAttribute('aria-expanded') !== 'true'));
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        przycisk.addEventListener('mouseenter', () => ustaw(true));
+        naglowek.addEventListener('mouseleave', () => ustaw(false));
+    }
+    document.addEventListener('pointerdown', e => {
+        if (!naglowek.contains(e.target)) ustaw(false);
+    });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && przycisk.getAttribute('aria-expanded') === 'true') {
+            ustaw(false);
+            przycisk.focus();
+        }
+    });
+    naglowek.addEventListener('focusout', () => {
+        setTimeout(() => { if (!naglowek.contains(document.activeElement)) ustaw(false); }, 0);
+    });
+})();
+</script>
 
 </body>
 </html>
